@@ -33,7 +33,9 @@ files = _.map(files, function(file, key){
 var development = {
     js: js.concat([
         'js/main.js',
-        'js/pixi.js'
+        'js/pixi.js',
+        'js/Far.js,',
+        'js/Mid.js'
     ]),
     css: css.concat([
         'css/styles.css'
