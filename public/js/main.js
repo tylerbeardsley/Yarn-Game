@@ -6,7 +6,7 @@ function init(){
                 renderer = new PIXI.autoDetectRenderer( 512, 384, {view: document.getElementById("game-canvas")});
 
                 // creates background texture
-                var farTexture = PIXI.Texture.fromImage("resources/bg-far.png");
+                var farTexture = PIXI.Texture.fromImage("/images/bg-far.png");
                 far = new PIXI.extras.TilingSprite(farTexture, 512, 256);
                 far.position.x = 0;
                 far.position.y = 0;
@@ -15,7 +15,7 @@ function init(){
                 stage.addChild(far);
 
                 // creates middle texture
-                var midTexture = PIXI.Texture.fromImage("resources/bg-mid.png");
+                var midTexture = PIXI.Texture.fromImage("/images/bg-mid.png");
                 mid = new PIXI.Sprite(midTexture);
                 mid.position.x = 0;
                 mid.position.y = 128;
