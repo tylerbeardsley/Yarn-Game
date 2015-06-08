@@ -1,22 +1,204 @@
 console.log('js goes here you sick little monkey');
 
 function init(){
-                stage = new PIXI.Container();
-                // hardcoded width and height of canvas but could easily get reference with document.getElementById("game-canvas").width
-                renderer = new PIXI.autoDetectRenderer( 512, 384, {view: document.getElementById("game-canvas")});
-
-                scroller = new Scroller(stage);
-
-                requestAnimationFrame(update);
-
-                function update(){
-                    scroller.moveViewportXBy(2);
-
-                    renderer.render(stage);
-
-                    requestAnimationFrame(update);
-                }
+    main = new Main();
 }
+
+function Main(){
+    this.stage = new PIXI.Container();
+    this.renderer = new PIXI.autoDetectRenderer(512, 384, {view: document.getElementById("game-canvas")});
+    this.loadSpriteSheet();
+}
+
+Main.SCROLL_SPEED = 5;
+
+Main.prototype.update = function(){
+    this.scroller.moveViewportXBy(Main.SCROLL_SPEED);
+    this.renderer.render(this.stage);
+    requestAnimationFrame(this.update.bind(this));
+};
+
+Main.prototype.loadSpriteSheet = function (){
+    var assetsToLoad = ["/images/wall.json"];
+    loader = PIXI.loader;
+    loader.add(assetsToLoad);
+    loader.once("complete", this.spriteSheetLoaded.bind(this));
+    loader.load();
+};
+
+Main.prototype.spriteSheetLoaded = function(){
+    this.scroller = new Scroller(this.stage);
+    requestAnimationFrame(this.update.bind(this));
+
+    this.pool = new WallSpritesPool();
+    this.wallSlices = [];
+};
+
+Main.prototype.generateTestWallSpan = function() {
+  var lookupTable = [
+    this.pool.borrowFrontEdge,  // 1st slice
+    this.pool.borrowWindow,     // 2nd slice
+    this.pool.borrowDecoration, // 3rd slice
+    this.pool.borrowWindow,     // 4th slice
+    this.pool.borrowDecoration, // 5th slice
+    this.pool.borrowWindow,     // 6th slice
+    this.pool.borrowBackEdge    // 7th slice
+  ];
+
+  for (var i = 0; i < lookupTable.length; i++){
+    var func = lookupTable[i];
+
+    var sprite = func.call(this.pool); // equivalent to this.pool.borrowFrontEdge()
+    sprite.position.x = 32 + (i * 64);
+    sprite.position.y = 128;
+
+    this.wallSlices.push(sprite);
+
+    this.stage.addChild(sprite);
+  }
+
+};
+
+Main.prototype.clearTestWallSpan = function() {
+  var lookupTable = [
+    this.pool.returnFrontEdge,  // 1st slice
+    this.pool.returnWindow,     // 2nd slice
+    this.pool.returnDecoration, // 3rd slice
+    this.pool.returnWindow,     // 4th slice
+    this.pool.returnDecoration, // 5th slice
+    this.pool.returnWindow,     // 6th slice
+    this.pool.returnBackEdge    // 7th slice
+  ];
+
+  for (var i = 0; i < lookupTable.length; i++)
+  {
+    var func = lookupTable[i];
+    var sprite = this.wallSlices[i];
+
+    this.stage.removeChild(sprite);
+    func.call(this.pool, sprite);
+  }
+
+  this.wallSlices = [];
+};
+
+function WallSpritesPool(){
+    this.createWindows();
+    this.createDecorations();
+    this.createFrontEdges();
+    this.createBackEdges();
+}
+
+WallSpritesPool.prototype.borrowWindow = function(){
+    return this.windows.shift();
+};
+
+WallSpritesPool.prototype.returnWindow = function(sprite){
+    this.windows.push(sprite);
+};
+
+WallSpritesPool.prototype.borrowDecoration = function(){
+    return this.decorations.shift();
+};
+
+WallSpritesPool.prototype.returnDecoration = function(sprite){
+    this.decorations.push(sprite);
+};
+
+WallSpritesPool.prototype.borrowFrontEdge = function() {
+  return this.frontEdges.shift();
+};
+
+WallSpritesPool.prototype.returnFrontEdge = function(sprite) {
+  this.frontEdges.push(sprite);
+};
+
+WallSpritesPool.prototype.borrowBackEdge = function() {
+  return this.backEdges.shift();
+};
+
+WallSpritesPool.prototype.returnBackEdge = function(sprite) {
+  this.backEdges.push(sprite);
+};
+
+WallSpritesPool.prototype.shuffle = function(array){
+    var len = array.length;
+    var shuffles = len * 3;
+    for (var i = 0; i < shuffles; i++){
+        var wallSlice = array.pop();
+        var pos = Math.floor(Math.random() * (len - 1));
+        array.splice(pos, 0, wallSlice);
+    }
+};
+
+WallSpritesPool.prototype.addWindowSprites = function(amount, frameId){
+    for(var i = 0; i < amount; i++){
+        var sprite = PIXI.Sprite.fromFrame(frameId);
+        this.windows.push(sprite);
+    }
+};
+
+WallSpritesPool.prototype.addDecorationSprites = function(amount, frameId){
+    for(var i = 0; i < amount; i++){
+        var sprite = PIXI.Sprite.fromFrame(frameId);
+        this.decorations.push(sprite);
+    }
+};
+
+WallSpritesPool.prototype.addFrontEdgeSprites = function(amount, frameId) {
+  for (var i = 0; i < amount; i++)
+  {
+    var sprite = new PIXI.Sprite(PIXI.Texture.fromFrame(frameId));
+    this.frontEdges.push(sprite);
+  }
+};
+
+WallSpritesPool.prototype.addBackEdgeSprites = function(amount, frameId) {
+  for (var i = 0; i < amount; i++)
+  {
+    var sprite = new PIXI.Sprite(PIXI.Texture.fromFrame(frameId));
+    sprite.anchor.x = 1;
+    sprite.scale.x = -1;
+    this.backEdges.push(sprite);
+  }
+};
+
+WallSpritesPool.prototype.createWindows = function() {
+    this.windows = [];
+
+    this.addWindowSprites(6, "window_01");
+    this.addWindowSprites(6, "window_02");
+
+    this.shuffle(this.windows);
+};
+
+WallSpritesPool.prototype.createDecorations = function(){
+    this.decorations = [];
+
+    this.addDecorationSprites(6, "decoration_01");
+    this.addDecorationSprites(6, "decoration_02");
+    this.addDecorationSprites(6, "decoration_03");
+
+    this.shuffle(this.decorations);
+};
+
+WallSpritesPool.prototype.createFrontEdges = function() {
+  this.frontEdges = [];
+
+  this.addFrontEdgeSprites(2, "edge_01");
+  this.addFrontEdgeSprites(2, "edge_02");
+
+  this.shuffle(this.frontEdges);
+};
+
+WallSpritesPool.prototype.createBackEdges = function() {
+  this.backEdges = [];
+
+  this.addBackEdgeSprites(2, "edge_01");
+  this.addBackEdgeSprites(2, "edge_02");
+
+  this.shuffle(this.backEdges);
+};
 
 
 // Mid Class
@@ -90,4 +272,5 @@ Scroller.prototype.getViewportX = function() {
 Scroller.prototype.moveViewportXBy = function(units){
     var newViewportX = this.viewportX + units;
     this.setViewportX(newViewportX);
-}
+};
+
