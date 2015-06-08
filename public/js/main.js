@@ -29,57 +29,6 @@ Main.prototype.loadSpriteSheet = function (){
 Main.prototype.spriteSheetLoaded = function(){
     this.scroller = new Scroller(this.stage);
     requestAnimationFrame(this.update.bind(this));
-
-    this.pool = new WallSpritesPool();
-    this.wallSlices = [];
-};
-
-Main.prototype.generateTestWallSpan = function() {
-  var lookupTable = [
-    this.pool.borrowFrontEdge,  // 1st slice
-    this.pool.borrowWindow,     // 2nd slice
-    this.pool.borrowDecoration, // 3rd slice
-    this.pool.borrowWindow,     // 4th slice
-    this.pool.borrowDecoration, // 5th slice
-    this.pool.borrowWindow,     // 6th slice
-    this.pool.borrowBackEdge    // 7th slice
-  ];
-
-  for (var i = 0; i < lookupTable.length; i++){
-    var func = lookupTable[i];
-
-    var sprite = func.call(this.pool); // equivalent to this.pool.borrowFrontEdge()
-    sprite.position.x = 32 + (i * 64);
-    sprite.position.y = 128;
-
-    this.wallSlices.push(sprite);
-
-    this.stage.addChild(sprite);
-  }
-
-};
-
-Main.prototype.clearTestWallSpan = function() {
-  var lookupTable = [
-    this.pool.returnFrontEdge,  // 1st slice
-    this.pool.returnWindow,     // 2nd slice
-    this.pool.returnDecoration, // 3rd slice
-    this.pool.returnWindow,     // 4th slice
-    this.pool.returnDecoration, // 5th slice
-    this.pool.returnWindow,     // 6th slice
-    this.pool.returnBackEdge    // 7th slice
-  ];
-
-  for (var i = 0; i < lookupTable.length; i++)
-  {
-    var func = lookupTable[i];
-    var sprite = this.wallSlices[i];
-
-    this.stage.removeChild(sprite);
-    func.call(this.pool, sprite);
-  }
-
-  this.wallSlices = [];
 };
 
 function WallSpritesPool(){
@@ -87,6 +36,7 @@ function WallSpritesPool(){
     this.createDecorations();
     this.createFrontEdges();
     this.createBackEdges();
+    this.createSteps();
 }
 
 WallSpritesPool.prototype.borrowWindow = function(){
@@ -121,6 +71,14 @@ WallSpritesPool.prototype.returnBackEdge = function(sprite) {
   this.backEdges.push(sprite);
 };
 
+WallSpritesPool.prototype.borrowStep = function() {
+  return this.steps.shift();
+};
+
+WallSpritesPool.prototype.returnStep = function(sprite) {
+  this.steps.push(sprite);
+};
+
 WallSpritesPool.prototype.shuffle = function(array){
     var len = array.length;
     var shuffles = len * 3;
@@ -146,22 +104,29 @@ WallSpritesPool.prototype.addDecorationSprites = function(amount, frameId){
 };
 
 WallSpritesPool.prototype.addFrontEdgeSprites = function(amount, frameId) {
-  for (var i = 0; i < amount; i++)
-  {
+  for (var i = 0; i < amount; i++){
     var sprite = new PIXI.Sprite(PIXI.Texture.fromFrame(frameId));
     this.frontEdges.push(sprite);
   }
 };
 
 WallSpritesPool.prototype.addBackEdgeSprites = function(amount, frameId) {
-  for (var i = 0; i < amount; i++)
-  {
+  for (var i = 0; i < amount; i++){
     var sprite = new PIXI.Sprite(PIXI.Texture.fromFrame(frameId));
     sprite.anchor.x = 1;
     sprite.scale.x = -1;
     this.backEdges.push(sprite);
   }
 };
+
+WallSpritesPool.prototype.addStepSprites = function(amount, frameId) {
+  for (var i = 0; i < amount; i++){
+    var sprite = new PIXI.Sprite(PIXI.Texture.fromFrame(frameId));
+    sprite.anchor.y = 0.25;
+    this.steps.push(sprite);
+  }
+};
+
 
 WallSpritesPool.prototype.createWindows = function() {
     this.windows = [];
@@ -198,6 +163,11 @@ WallSpritesPool.prototype.createBackEdges = function() {
   this.addBackEdgeSprites(2, "edge_02");
 
   this.shuffle(this.backEdges);
+};
+
+WallSpritesPool.prototype.createSteps = function() {
+  this.steps = [];
+  this.addStepSprites(2, "step_01");
 };
 
 
@@ -256,6 +226,9 @@ function Scroller(stage){
     this.mid = new Mid();
     stage.addChild(this.mid);
 
+    this.front = new Walls();
+    stage.addChild(this.front);
+
     this.viewportX = 0;
 }
 
@@ -274,3 +247,97 @@ Scroller.prototype.moveViewportXBy = function(units){
     this.setViewportX(newViewportX);
 };
 
+function SliceType(){
+    SliceType.FRONT      = 0;
+    SliceType.BACK       = 1;
+    SliceType.DECORATION = 3;
+    SliceType.WINDOW     = 4;
+    SliceType.GAP        = 5;
+}
+
+function Walls(){
+    PIXI.Container.call(this);
+    this.pool = new WallSpritesPool();
+    this.createLookupTables();
+
+    this.slices = [];
+    this.createTestMap();
+}
+
+Walls.constructor = Walls;
+Walls.prototype = Object.create(PIXI.Container.prototype);
+
+Walls.VIEWPORT_WIDTH = 512;
+Walls.VIEWPORT_NUM_SLICES = Math.ceil(Walls.VIEWPORT_WIDTH/WallSlice.WIDTH) + 1;
+
+Walls.prototype.addSlice = function(sliceType, y) {
+  var slice = new WallSlice(sliceType, y);
+  this.slices.push(slice);
+};
+
+Walls.prototype.createLookupTables = function() {
+  this.borrowWallSpriteLookup = [];
+  this.borrowWallSpriteLookup[SliceType.FRONT] = this.pool.borrowFrontEdge;
+  this.borrowWallSpriteLookup[SliceType.BACK] = this.pool.borrowBackEdge;
+  this.borrowWallSpriteLookup[SliceType.STEP] = this.pool.borrowStep;
+  this.borrowWallSpriteLookup[SliceType.DECORATION] = this.pool.borrowDecoration;
+  this.borrowWallSpriteLookup[SliceType.WINDOW] = this.pool.borrowWindow;
+
+  this.returnWallSpriteLookup = [];
+  this.returnWallSpriteLookup[SliceType.FRONT] = this.pool.returnFrontEdge;
+  this.returnWallSpriteLookup[SliceType.BACK] = this.pool.returnBackEdge;
+  this.returnWallSpriteLookup[SliceType.STEP] = this.pool.returnStep;
+  this.returnWallSpriteLookup[SliceType.DECORATION] = this.pool.returnDecoration;
+  this.returnWallSpriteLookup[SliceType.WINDOW] = this.pool.returnWindow;
+};
+
+Walls.prototype.borrowWallSprite = function(sliceType) {
+  return this.borrowWallSpriteLookup[sliceType].call(this.pool);
+};
+
+Walls.prototype.returnWallSprite = function(sliceType, sliceSprite) {
+  return this.returnWallSpriteLookup[sliceType].call(this.pool, sliceSprite);
+};
+
+Walls.prototype.createTestWallSpan = function() {
+  this.addSlice(SliceType.FRONT, 192);
+  this.addSlice(SliceType.WINDOW, 192);
+  this.addSlice(SliceType.DECORATION, 192);
+  this.addSlice(SliceType.WINDOW, 192);
+  this.addSlice(SliceType.DECORATION, 192);
+  this.addSlice(SliceType.WINDOW, 192);
+  this.addSlice(SliceType.DECORATION, 192);
+  this.addSlice(SliceType.WINDOW, 192);
+  this.addSlice(SliceType.BACK, 192);
+};
+
+Walls.prototype.createTestSteppedWallSpan = function() {
+  this.addSlice(SliceType.FRONT, 192);
+  this.addSlice(SliceType.WINDOW, 192);
+  this.addSlice(SliceType.DECORATION, 192);
+  this.addSlice(SliceType.STEP, 256);
+  this.addSlice(SliceType.WINDOW, 256);
+  this.addSlice(SliceType.BACK, 256);
+};
+
+Walls.prototype.createTestGap = function() {
+  this.addSlice(SliceType.GAP);
+};
+
+Walls.prototype.createTestMap = function() {
+  for (var i = 0; i < 10; i++)
+  {
+    this.createTestWallSpan();
+    this.createTestGap();
+    this.createTestSteppedWallSpan();
+    this.createTestGap();
+  }
+};
+
+function WallSlice(type, y) {
+  this.type   = type;
+  this.y      = y;
+  this.sprite = null;
+}
+
+WallSlice.WIDTH = 64;
