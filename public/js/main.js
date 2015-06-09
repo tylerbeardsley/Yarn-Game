@@ -11,12 +11,47 @@ var stage = new PIXI.Container();
 // create a new container for game stuff
 var gameContainer = new PIXI.Container();
 stage.addChild(gameContainer);
+stage.scale.x = 0.75;
+stage.scale.y = 0.75;
+// Create some game Text
+var text = "Player 1 Score";
+var style = {
+  font: '50px Arial bold',
+  fill: '#F7EDCA',
+  strokeThickness: '3'
+};
+var scoreKeeper = new PIXI.Text(text, style);
+scoreKeeper.x = 970;
+scoreKeeper.y = 30;
+
+stage.addChild(scoreKeeper);
+
+var scoreNum = 0;
+var score = new PIXI.Text("0", style);
+score.x = 1100;
+score.y = 100;
+stage.addChild(score);
+
+var text2 = "Player 2 Score";
+var scoreKeeper2 = new PIXI.Text(text2, style);
+scoreKeeper2.x = 970;
+scoreKeeper2.y = 420;
+stage.addChild(scoreKeeper2);
+
+var scoreNum2 = 0;
+var score2 = new PIXI.Text("0", style);
+score2.x = 1100;
+score2.y = 490;
+stage.addChild(score2);
+
+var player1Turn = true;
+
 // create a renderer instance width=640 height=480
-var renderer = PIXI.autoDetectRenderer(640,480, {backgroundColor: 0x1099bb});
+var renderer = PIXI.autoDetectRenderer(992, 700, {backgroundColor: 0x1099bb});
 // importing a texture atlas created with texturepacker
-var tileAtlas = ["/images/images.json"];
+var tileAtlas = ["/images/MemoryTrixelSprites.json"];
 // create a new loader
-var loader = PIXI.loader;
+var loader = new PIXI.loaders.Loader();
 loader.add(tileAtlas);
 // add the renderer view element to the DOM
 document.body.appendChild(renderer.view);
@@ -30,7 +65,7 @@ function onTilesLoaded(){
   // choose 24 random tile images
   var chosenTiles = new Array();
   while(chosenTiles.length < 48){
-    var candidate = Math.floor(Math.random() * 44);
+    var candidate = Math.floor(Math.random() * 24); // 24 is the number of Sprites in sprite sheet
     if(chosenTiles.indexOf(candidate) == -1){
       chosenTiles.push(candidate, candidate);
     }     
@@ -57,8 +92,8 @@ function onTilesLoaded(){
       tile.theVal = chosenTiles[i * 6 + j]
       // place the tile
       // this is hardcoded to certain pixel coordinates (might want something more flexible)
-      tile.position.x = 7 + i * 80;
-      tile.position.y = 7 + j * 80;
+      tile.position.x = 7 + i * 115;
+      tile.position.y = 7 + j * 130; 
       // paint tile black
       tile.tint = 0x000000;
       // set it a bit transparent (it will look grey)
@@ -94,6 +129,15 @@ function onTilesLoaded(){
                   firstTile = null;
                   secondTile = null;
                   canPick = true;
+                  // MY ADDITIONS FOR SCORE
+                  if(player1Turn == true){
+                    scoreNum++;
+                    score.text = scoreNum.toString();
+                  }
+                  else{
+                    scoreNum2++;
+                    score2.text = scoreNum2.toString();
+                  }
                 },1000);
               }
               // we picked different tiles
@@ -108,7 +152,8 @@ function onTilesLoaded(){
                   secondTile.alpha = 0.5;
                   firstTile = null;
                   secondTile = null;
-                  canPick = true  
+                  canPick = true;
+                  player1Turn = !player1Turn;  
                 },1000);
               }
             } 
