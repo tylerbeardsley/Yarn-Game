@@ -7,19 +7,17 @@ var secondTile = null;
 // can the player pick up a tile?
 var canPick = true;
 // create an new instance of a pixi stage with a grey background
-var stage = new PIXI.Container(0x888888);
+var stage = new PIXI.Container();
+// create a new container for game stuff
+var gameContainer = new PIXI.Container();
+stage.addChild(gameContainer);
 // create a renderer instance width=640 height=480
-var renderer = PIXI.autoDetectRenderer(640,480);
+var renderer = PIXI.autoDetectRenderer(640,480, {backgroundColor: 0x1099bb});
 // importing a texture atlas created with texturepacker
 var tileAtlas = ["/images/images.json"];
 // create a new loader
 var loader = PIXI.loader;
 loader.add(tileAtlas);
-// create an empty container
-// OLD CODE = var gameContainer = new PIXI.DisplayObjectContainer();
-var gameContainer = new PIXI.Container();
-// add the container to the stage
-stage.addChild(gameContainer);
 // add the renderer view element to the DOM
 document.body.appendChild(renderer.view);
 // use callback
@@ -38,9 +36,9 @@ function onTilesLoaded(){
     }     
   }
   // shuffle the chosen tiles
-  for(i = 0; i < 96; i++){
-    var from = Math.floor(Math.random() * 48);
-    var to = Math.floor(Math.random() * 48);
+  for(i = 1; i < 48; i++){
+    var from = Math.floor(Math.random() * (i + 1));
+    var to = i;
     var tmp = chosenTiles[from];
     chosenTiles[from] = chosenTiles[to];
     chosenTiles[to] = tmp;
