@@ -1,171 +1,145 @@
 console.log('js goes here you sick little monkey');
 
+var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
-// first tile picked up by the player
-var firstTile = null;
-// second tile picked up by the player
-var secondTile = null;
-// can the player pick up a tile?
-var canPick = true;
-// create an new instance of a pixi stage with a grey background
-var stage = new PIXI.Container();
-// create a new container for game stuff
-var gameContainer = new PIXI.Container();
-stage.addChild(gameContainer);
-stage.scale.x = 0.75;
-stage.scale.y = 0.75;
-// Create some game Text
-var text = "Player 1 Score";
-var style = {
-  font: '50px Arial bold',
-  fill: '#F7EDCA',
-  strokeThickness: '3'
-};
-var scoreKeeper = new PIXI.Text(text, style);
-scoreKeeper.x = 970;
-scoreKeeper.y = 30;
+function preload() {
 
-stage.addChild(scoreKeeper);
+    game.load.image('sky', '/images/assets/sky.png');
+    game.load.image('ground', '/images/assets/platform.png');
+    game.load.image('star', '/images/assets/star.png');
+    game.load.spritesheet('dude', '/images/assets/dude.png', 32, 48);
 
-var scoreNum = 0;
-var score = new PIXI.Text("0", style);
-score.x = 1100;
-score.y = 100;
-stage.addChild(score);
-
-var text2 = "Player 2 Score";
-var scoreKeeper2 = new PIXI.Text(text2, style);
-scoreKeeper2.x = 970;
-scoreKeeper2.y = 420;
-stage.addChild(scoreKeeper2);
-
-var scoreNum2 = 0;
-var score2 = new PIXI.Text("0", style);
-score2.x = 1100;
-score2.y = 490;
-stage.addChild(score2);
-
-var player1Turn = true;
-
-// create a renderer instance width=640 height=480
-var renderer = PIXI.autoDetectRenderer(992, 700, {backgroundColor: 0x1099bb});
-// importing a texture atlas created with texturepacker
-var tileAtlas = ["/images/MemoryTrixelSprites.json"];
-// create a new loader
-var loader = new PIXI.loaders.Loader();
-loader.add(tileAtlas);
-// add the renderer view element to the DOM
-document.body.appendChild(renderer.view);
-// use callback
-loader.once("complete", onTilesLoaded);
-//begin load
-loader.load(); 
-
-
-function onTilesLoaded(){
-  // choose 24 random tile images
-  var chosenTiles = new Array();
-  while(chosenTiles.length < 48){
-    var candidate = Math.floor(Math.random() * 24); // 24 is the number of Sprites in sprite sheet
-    if(chosenTiles.indexOf(candidate) == -1){
-      chosenTiles.push(candidate, candidate);
-    }     
-  }
-  // shuffle the chosen tiles
-  for(i = 1; i < 48; i++){
-    var from = Math.floor(Math.random() * (i + 1));
-    var to = i;
-    var tmp = chosenTiles[from];
-    chosenTiles[from] = chosenTiles[to];
-    chosenTiles[to] = tmp;
-  }
-  // place down tiles
-  for(i = 0; i < 8; i++){
-    for(j = 0; j < 6; j++){
-      // new sprite
-      var tile = PIXI.Sprite.fromFrame(chosenTiles[i * 6 + j]);
-      // buttonmode+interactive = acts like a button
-      tile.buttonMode = true;
-      tile.interactive = true;
-      // is the tile selected?
-      tile.isSelected = false;
-      // set a tile value
-      tile.theVal = chosenTiles[i * 6 + j]
-      // place the tile
-      // this is hardcoded to certain pixel coordinates (might want something more flexible)
-      tile.position.x = 7 + i * 115;
-      tile.position.y = 7 + j * 130; 
-      // paint tile black
-      tile.tint = 0x000000;
-      // set it a bit transparent (it will look grey)
-      tile.alpha = 0.5;
-      // add the tile
-      gameContainer.addChild(tile);
-      // mouse-touch listener
-      tile.mousedown = tile.touchstart = function(data){
-        // can I pick a tile?
-        if(canPick) {
-            // is the tile already selected?
-          if(!this.isSelected){
-            // set the tile to selected
-            this.isSelected = true;
-            // show the tile
-            this.tint = 0xffffff;
-            this.alpha = 1;
-            // is it the first tile we uncover?
-            if(firstTile == null){
-              firstTile = this;
-            }
-            // this is the second tile
-            else{
-              secondTile = this;
-              // can't pick anymore
-              canPick = false;
-              // did we pick the same tiles?
-              if(firstTile.theVal == secondTile.theVal){
-                // wait a second then remove the tiles and make the player able to pick again
-                setTimeout(function(){
-                  gameContainer.removeChild(firstTile);
-                  gameContainer.removeChild(secondTile);
-                  firstTile = null;
-                  secondTile = null;
-                  canPick = true;
-                  // MY ADDITIONS FOR SCORE
-                  if(player1Turn == true){
-                    scoreNum++;
-                    score.text = scoreNum.toString();
-                  }
-                  else{
-                    scoreNum2++;
-                    score2.text = scoreNum2.toString();
-                  }
-                },1000);
-              }
-              // we picked different tiles
-              else{
-                // wait a second then cover the tiles and make the player able to pick again
-                setTimeout(function(){
-                  firstTile.isSelected = false
-                  secondTile.isSelected = false
-                  firstTile.tint = 0x000000;
-                  secondTile.tint = 0x000000;
-                  firstTile.alpha = 0.5;
-                  secondTile.alpha = 0.5;
-                  firstTile = null;
-                  secondTile = null;
-                  canPick = true;
-                  player1Turn = !player1Turn;  
-                },1000);
-              }
-            } 
-          }
-        }
-      }
-    }
-  } 
-  requestAnimationFrame(animate);
 }
-function animate() {
-  requestAnimationFrame(animate);
-  renderer.render(stage);
+
+var player;
+var platforms;
+var cursors;
+
+var stars;
+var score = 0;
+var scoreText;
+
+function create() {
+
+    //  We're going to be using physics, so enable the Arcade Physics system
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    //  A simple background for our game
+    game.add.sprite(0, 0, 'sky');
+
+    //  The platforms group contains the ground and the 2 ledges we can jump on
+    platforms = game.add.group();
+
+    //  We will enable physics for any object that is created in this group
+    platforms.enableBody = true;
+
+    // Here we create the ground.
+    var ground = platforms.create(0, game.world.height - 64, 'ground');
+
+    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
+    ground.scale.setTo(2, 2);
+
+    //  This stops it from falling away when you jump on it
+    ground.body.immovable = true;
+
+    //  Now let's create two ledges
+    var ledge = platforms.create(400, 400, 'ground');
+    ledge.body.immovable = true;
+
+    ledge = platforms.create(-150, 250, 'ground');
+    ledge.body.immovable = true;
+
+    // The player and its settings
+    player = game.add.sprite(32, game.world.height - 150, 'dude');
+
+    //  We need to enable physics on the player
+    game.physics.arcade.enable(player);
+
+    //  Player physics properties. Give the little guy a slight bounce.
+    player.body.bounce.y = 0.2;
+    player.body.gravity.y = 300;
+    player.body.collideWorldBounds = true;
+
+    //  Our two animations, walking left and right.
+    player.animations.add('left', [0, 1, 2, 3], 10, true);
+    player.animations.add('right', [5, 6, 7, 8], 10, true);
+
+    //  Finally some stars to collect
+    stars = game.add.group();
+
+    //  We will enable physics for any star that is created in this group
+    stars.enableBody = true;
+
+    //  Here we'll create 12 of them evenly spaced apart
+    for (var i = 0; i < 12; i++)
+    {
+        //  Create a star inside of the 'stars' group
+        var star = stars.create(i * 70, 0, 'star');
+
+        //  Let gravity do its thing
+        star.body.gravity.y = 300;
+
+        //  This just gives each star a slightly random bounce value
+        star.body.bounce.y = 0.7 + Math.random() * 0.2;
+    }
+
+    //  The score
+    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+
+    //  Our controls.
+    cursors = game.input.keyboard.createCursorKeys();
+    
+}
+
+function update() {
+
+    //  Collide the player and the stars with the platforms
+    game.physics.arcade.collide(player, platforms);
+    game.physics.arcade.collide(stars, platforms);
+
+    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
+    game.physics.arcade.overlap(player, stars, collectStar, null, this);
+
+    //  Reset the players velocity (movement)
+    player.body.velocity.x = 0;
+
+    if (cursors.left.isDown)
+    {
+        //  Move to the left
+        player.body.velocity.x = -150;
+
+        player.animations.play('left');
+    }
+    else if (cursors.right.isDown)
+    {
+        //  Move to the right
+        player.body.velocity.x = 150;
+
+        player.animations.play('right');
+    }
+    else
+    {
+        //  Stand still
+        player.animations.stop();
+
+        player.frame = 4;
+    }
+    
+    //  Allow the player to jump if they are touching the ground.
+    if (cursors.up.isDown && player.body.touching.down)
+    {
+        player.body.velocity.y = -350;
+    }
+
+}
+
+function collectStar (player, star) {
+    
+    // Removes the star from the screen
+    star.kill();
+
+    //  Add and update the score
+    score += 10;
+    scoreText.text = 'Score: ' + score;
+
 }
