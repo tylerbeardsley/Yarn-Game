@@ -1,6 +1,6 @@
 console.log('js goes here you sick little monkey');
 
-var game = new Phaser.Game(1000, 800, Phaser.CANVAS, "", {preload: onPreload, create: onCreate});                
+var game = new Phaser.Game(1000, 800, Phaser.AUTO, "", {preload: onPreload, create: onCreate, update: onUpdate});                
  
 var hexagonWidth = 108;
 var hexagonHeight = 128;
@@ -15,8 +15,7 @@ var marker;
 var hexagonGroup;
  
 function onPreload() {
-    game.load.image("hexagon", "/images/LandTiles/rocktile.png");
-    game.load.image("marker", "/images/LandTiles/watertile.png");
+    game.load.atlasJSONHash("atlas", "/images/LandTiles.png", "/images/LandTiles.json");
 }
 
 function onCreate() {
@@ -26,8 +25,11 @@ function onCreate() {
         for(var j = 0; j < gridSizeX; j ++){
             if(gridSizeY%2==0 || i+1<gridSizeY/2 || j%2==0){
                 var hexagonX = hexagonWidth*j/2;
-                var hexagonY = hexagonHeight*i*1.5+(hexagonHeight/4*3)*(j%2);   
-                var hexagon = game.add.sprite(hexagonX,hexagonY,"hexagon");
+                var hexagonY = hexagonHeight*i*1.5+(hexagonHeight/4*3)*(j%2);
+                //MY CODE STARTS HERE
+                var hexagon = game.add.button(hexagonX, hexagonY, "atlas", changeTile, this, "rocktile.png", "rocktile.png", "rocktile.png", "rocktile.png");
+                hexagon.input.useHandCursor = false;
+                //var hexagon = game.add.sprite(hexagonX,hexagonY,"hexagon");
                 hexagonGroup.add(hexagon);
             }
         }
@@ -40,11 +42,15 @@ function onCreate() {
       if(gridSizeY%2==0){
            hexagonGroup.y-=hexagonHeight/8;
       }
-    marker = game.add.sprite(0,0,"marker");
+    marker = game.add.sprite(0,0,"atlas");
+    marker.frameName = "watertile.png";
     marker.anchor.setTo(0.5);
     marker.visible=false;
-    hexagonGroup.add(marker);
-      moveIndex = game.input.addMoveCallback(checkHex, this);           
+    hexagonGroup.add(marker);         
+}
+
+function onUpdate(){
+    moveIndex = game.input.addMoveCallback(checkHex, this);
 }
  
 function checkHex(){
@@ -94,4 +100,9 @@ function placeMarker(posX,posY){
             marker.x += hexagonWidth;
         }
     }
+}
+
+function changeTile(){
+    console.log("button is being pressed");
+    this.frameName = "watertile.png";
 }
