@@ -1,5 +1,6 @@
 console.log('js goes here you sick little monkey');
 
+
 // first tile picked up by the player
 var firstTile = null;
 // second tile picked up by the player
@@ -168,4 +169,3 @@ function animate() {
   requestAnimationFrame(animate);
   renderer.render(stage);
 }
-
