@@ -1,145 +1,97 @@
 console.log('js goes here you sick little monkey');
 
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
-
-function preload() {
-
-    game.load.image('sky', '/images/assets/sky.png');
-    game.load.image('ground', '/images/assets/platform.png');
-    game.load.image('star', '/images/assets/star.png');
-    game.load.spritesheet('dude', '/images/assets/dude.png', 32, 48);
-
+var game = new Phaser.Game(1000, 800, Phaser.CANVAS, "", {preload: onPreload, create: onCreate});                
+ 
+var hexagonWidth = 108;
+var hexagonHeight = 128;
+var gridSizeX = 17;
+var gridSizeY = 7;
+var columns = [Math.ceil(gridSizeX/2),Math.floor(gridSizeX/2)];
+var moveIndex;
+var sectorWidth = hexagonWidth;
+var sectorHeight = hexagonHeight/4*3;
+var gradient = (hexagonHeight/4)/(hexagonWidth/2);
+var marker;
+var hexagonGroup;
+ 
+function onPreload() {
+    game.load.image("hexagon", "/images/LandTiles/rocktile.png");
+    game.load.image("marker", "/images/LandTiles/watertile.png");
 }
 
-var player;
-var platforms;
-var cursors;
-
-var stars;
-var score = 0;
-var scoreText;
-
-function create() {
-
-    //  We're going to be using physics, so enable the Arcade Physics system
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-
-    //  A simple background for our game
-    game.add.sprite(0, 0, 'sky');
-
-    //  The platforms group contains the ground and the 2 ledges we can jump on
-    platforms = game.add.group();
-
-    //  We will enable physics for any object that is created in this group
-    platforms.enableBody = true;
-
-    // Here we create the ground.
-    var ground = platforms.create(0, game.world.height - 64, 'ground');
-
-    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    ground.scale.setTo(2, 2);
-
-    //  This stops it from falling away when you jump on it
-    ground.body.immovable = true;
-
-    //  Now let's create two ledges
-    var ledge = platforms.create(400, 400, 'ground');
-    ledge.body.immovable = true;
-
-    ledge = platforms.create(-150, 250, 'ground');
-    ledge.body.immovable = true;
-
-    // The player and its settings
-    player = game.add.sprite(32, game.world.height - 150, 'dude');
-
-    //  We need to enable physics on the player
-    game.physics.arcade.enable(player);
-
-    //  Player physics properties. Give the little guy a slight bounce.
-    player.body.bounce.y = 0.2;
-    player.body.gravity.y = 300;
-    player.body.collideWorldBounds = true;
-
-    //  Our two animations, walking left and right.
-    player.animations.add('left', [0, 1, 2, 3], 10, true);
-    player.animations.add('right', [5, 6, 7, 8], 10, true);
-
-    //  Finally some stars to collect
-    stars = game.add.group();
-
-    //  We will enable physics for any star that is created in this group
-    stars.enableBody = true;
-
-    //  Here we'll create 12 of them evenly spaced apart
-    for (var i = 0; i < 12; i++)
-    {
-        //  Create a star inside of the 'stars' group
-        var star = stars.create(i * 70, 0, 'star');
-
-        //  Let gravity do its thing
-        star.body.gravity.y = 300;
-
-        //  This just gives each star a slightly random bounce value
-        star.body.bounce.y = 0.7 + Math.random() * 0.2;
+function onCreate() {
+    hexagonGroup = game.add.group();
+    game.stage.backgroundColor = "#ffffff"
+     for(var i = 0; i < gridSizeY/2; i ++){
+        for(var j = 0; j < gridSizeX; j ++){
+            if(gridSizeY%2==0 || i+1<gridSizeY/2 || j%2==0){
+                var hexagonX = hexagonWidth*j/2;
+                var hexagonY = hexagonHeight*i*1.5+(hexagonHeight/4*3)*(j%2);   
+                var hexagon = game.add.sprite(hexagonX,hexagonY,"hexagon");
+                hexagonGroup.add(hexagon);
+            }
+        }
     }
-
-    //  The score
-    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
-
-    //  Our controls.
-    cursors = game.input.keyboard.createCursorKeys();
-    
+    hexagonGroup.x = (game.width-hexagonWidth*Math.ceil(gridSizeX/2))/2;
+      if(gridSizeX%2==0){
+           hexagonGroup.x-=hexagonWidth/4;
+      }
+    hexagonGroup.y = (game.height-Math.ceil(gridSizeY/2)*hexagonHeight-Math.floor(gridSizeY/2)*hexagonHeight/2)/2;
+      if(gridSizeY%2==0){
+           hexagonGroup.y-=hexagonHeight/8;
+      }
+    marker = game.add.sprite(0,0,"marker");
+    marker.anchor.setTo(0.5);
+    marker.visible=false;
+    hexagonGroup.add(marker);
+      moveIndex = game.input.addMoveCallback(checkHex, this);           
 }
-
-function update() {
-
-    //  Collide the player and the stars with the platforms
-    game.physics.arcade.collide(player, platforms);
-    game.physics.arcade.collide(stars, platforms);
-
-    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-    game.physics.arcade.overlap(player, stars, collectStar, null, this);
-
-    //  Reset the players velocity (movement)
-    player.body.velocity.x = 0;
-
-    if (cursors.left.isDown)
-    {
-        //  Move to the left
-        player.body.velocity.x = -150;
-
-        player.animations.play('left');
+ 
+function checkHex(){
+    var candidateX = Math.floor((game.input.worldX-hexagonGroup.x)/sectorWidth);
+    var candidateY = Math.floor((game.input.worldY-hexagonGroup.y)/sectorHeight);
+    var deltaX = (game.input.worldX-hexagonGroup.x)%sectorWidth;
+    var deltaY = (game.input.worldY-hexagonGroup.y)%sectorHeight; 
+    if(candidateY%2==0){
+        if(deltaY<((hexagonHeight/4)-deltaX*gradient)){
+            candidateX--;
+            candidateY--;
+        }
+        if(deltaY<((-hexagonHeight/4)+deltaX*gradient)){
+            candidateY--;
+        }
+    }    
+    else{
+        if(deltaX>=hexagonWidth/2){
+            if(deltaY<(hexagonHeight/2-deltaX*gradient)){
+                candidateY--;
+            }
+        }
+        else{
+            if(deltaY<deltaX*gradient){
+                candidateY--;
+            }
+            else{
+                candidateX--;
+            }
+        }
     }
-    else if (cursors.right.isDown)
-    {
-        //  Move to the right
-        player.body.velocity.x = 150;
-
-        player.animations.play('right');
-    }
-    else
-    {
-        //  Stand still
-        player.animations.stop();
-
-        player.frame = 4;
-    }
-    
-    //  Allow the player to jump if they are touching the ground.
-    if (cursors.up.isDown && player.body.touching.down)
-    {
-        player.body.velocity.y = -350;
-    }
-
+    placeMarker(candidateX,candidateY);
 }
-
-function collectStar (player, star) {
-    
-    // Removes the star from the screen
-    star.kill();
-
-    //  Add and update the score
-    score += 10;
-    scoreText.text = 'Score: ' + score;
-
+ 
+function placeMarker(posX,posY){
+    if(posX<0 || posY<0 || posY>=gridSizeY || posX>columns[posY%2]-1){
+        marker.visible=false;
+    }
+    else{
+        marker.visible=true;
+        marker.x = hexagonWidth*posX;
+        marker.y = hexagonHeight/4*3*posY+hexagonHeight/2;
+        if(posY%2==0){
+            marker.x += hexagonWidth/2;
+        }
+        else{
+            marker.x += hexagonWidth;
+        }
+    }
 }
