@@ -32,7 +32,7 @@ files = _.map(files, function(file, key){
 
 var development = {
     js: js.concat([
-        'js/pixi.js',
+        'js/phaser.js',
         'js/main.js'
     ]),
     css: css.concat([
