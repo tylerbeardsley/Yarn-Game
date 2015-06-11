@@ -134,9 +134,9 @@ function placePaintTile(posX,posY){
 }
 
 changeTile = function(tile){
-    tile.setFrames("watertile.png", "watertile.png", "watertile.png", "watertile.png");
+    tile.setFrames(paintTile.frameName, paintTile.frameName, paintTile.frameName, paintTile.frameName);
 }
 
 changePaint = function(tile){
-
+    paintTile.frameName = tile.frameName;
 }
