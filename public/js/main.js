@@ -13,15 +13,19 @@ var sectorHeight = hexagonHeight/4*3;
 var gradient = (hexagonHeight/4)/(hexagonWidth/2);
 var paintTile;
 var hexagonGroup;
+var paletteText;
+var paletteGroup;
  
 function onPreload() {
     game.load.atlasJSONHash("atlas", "/images/LandTiles.png", "/images/LandTiles.json");
+    game.load.bitmapFont("desyrel", "/images/phaserFonts/bitmapFonts/desyrel-pink.png", 
+        "/images/phaserFonts/bitmapFonts/desyrel-pink.xml");
 }
 
 function onCreate() {
     hexagonGroup = game.add.group();
     game.stage.backgroundColor = "#ffffff"
-     for(var i = 0; i < gridSizeY/2; i ++){
+    for(var i = 0; i < gridSizeY/2; i ++){
         for(var j = 0; j < gridSizeX; j ++){
             if(gridSizeY%2==0 || i+1<gridSizeY/2 || j%2==0){
                 var hexagonX = hexagonWidth*j/2;
@@ -49,7 +53,31 @@ function onCreate() {
     paintTile.frameName = "watertile.png";
     paintTile.anchor.setTo(0.5);
     paintTile.visible=false;
-    hexagonGroup.add(paintTile);         
+    hexagonGroup.add(paintTile);
+
+    // CREATE FONT
+    paletteText = game.add.bitmapText(990, 30, "desyrel", "Tile Palette", 60);
+
+    // CREATE Pallete
+    paletteGroup = game.add.group();
+    var index = 0;
+    var xCor = 1000;
+    var yCor = 30;
+    for(var i = 0; i < 3; i ++){
+        yCor += 130;
+        for(var j = 0; j < 2; j ++){
+            if(j == 0){
+                xCor = 1000;
+            }
+            else{
+                xCor = 1130;
+            }
+            var tile = game.add.button(xCor, yCor, "atlas", changePaint, this, index, index, index, index);
+            hexagon.input.useHandCursor = true;
+            paletteGroup.add(tile);
+            index++;
+        }
+    }
 }
 
 function onUpdate(){
@@ -107,4 +135,8 @@ function placePaintTile(posX,posY){
 
 changeTile = function(tile){
     tile.setFrames("watertile.png", "watertile.png", "watertile.png", "watertile.png");
+}
+
+changePaint = function(tile){
+
 }
