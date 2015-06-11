@@ -1,6 +1,6 @@
 console.log('js goes here you sick little monkey');
 
-var game = new Phaser.Game(1000, 800, Phaser.AUTO, "", {preload: onPreload, create: onCreate, update: onUpdate});                
+var game = new Phaser.Game(document.body.offsetWidth, document.body.offsetHeight, Phaser.AUTO, "", {preload: onPreload, create: onCreate, update: onUpdate});                
 var hexagonWidth = 108;
 var hexagonHeight = 128;
 var gridSizeX = 40; // basic is 17
