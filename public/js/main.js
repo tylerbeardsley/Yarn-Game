@@ -1,6 +1,6 @@
 console.log('js goes here you sick little monkey');
 
-var game = new Phaser.Game(1300, 800, Phaser.AUTO, "", {preload: onPreload, create: onCreate, update: onUpdate});                
+var game = new Phaser.Game("100%", "100%", Phaser.AUTO, "", {preload: onPreload, create: onCreate, update: onUpdate});                
  
 var hexagonWidth = 108;
 var hexagonHeight = 128;
@@ -15,6 +15,7 @@ var paintTile;
 var hexagonGroup;
 var paletteText;
 var paletteGroup;
+var scaleFactor = 0.5; // Defaults at 1 but can change depending on size of user's screen
  
 function onPreload() {
     game.load.atlasJSONHash("atlas", "/images/LandTiles.png", "/images/LandTiles.json");
@@ -24,6 +25,8 @@ function onPreload() {
 
 function onCreate() {
     hexagonGroup = game.add.group();
+    hexagonGroup.scale.x = scaleFactor;
+    hexagonGroup.scale.y = scaleFactor;
     game.stage.backgroundColor = "#ffffff"
     for(var i = 0; i < gridSizeY/2; i ++){
         for(var j = 0; j < gridSizeX; j ++){
@@ -85,10 +88,10 @@ function onUpdate(){
 }
  
 function checkHex(){
-    var candidateX = Math.floor((game.input.worldX-hexagonGroup.x)/sectorWidth);
-    var candidateY = Math.floor((game.input.worldY-hexagonGroup.y)/sectorHeight);
-    var deltaX = (game.input.worldX-hexagonGroup.x)%sectorWidth;
-    var deltaY = (game.input.worldY-hexagonGroup.y)%sectorHeight; 
+    var candidateX = Math.floor((game.input.worldX/scaleFactor-hexagonGroup.x)/sectorWidth);
+    var candidateY = Math.floor((game.input.worldY/scaleFactor-hexagonGroup.y)/sectorHeight);
+    var deltaX = (game.input.worldX/scaleFactor-hexagonGroup.x)%sectorWidth;
+    var deltaY = (game.input.worldY/scaleFactor-hexagonGroup.y)%sectorHeight; 
     if(candidateY%2==0){
         if(deltaY<((hexagonHeight/4)-deltaX*gradient)){
             candidateX--;
