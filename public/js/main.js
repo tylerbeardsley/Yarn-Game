@@ -1,6 +1,6 @@
 console.log('js goes here you sick little monkey');
 
-var game = new Phaser.Game(1000, 800, Phaser.AUTO, "", {preload: onPreload, create: onCreate, update: onUpdate});                
+var game = new Phaser.Game(1300, 800, Phaser.AUTO, "", {preload: onPreload, create: onCreate, update: onUpdate});                
  
 var hexagonWidth = 108;
 var hexagonHeight = 128;
@@ -11,7 +11,7 @@ var moveIndex;
 var sectorWidth = hexagonWidth;
 var sectorHeight = hexagonHeight/4*3;
 var gradient = (hexagonHeight/4)/(hexagonWidth/2);
-var marker;
+var paintTile;
 var hexagonGroup;
  
 function onPreload() {
@@ -34,6 +34,8 @@ function onCreate() {
             }
         }
     }
+    // THIS SECTION CENTERS THE GRID TO THE MAP
+    /*
     hexagonGroup.x = (game.width-hexagonWidth*Math.ceil(gridSizeX/2))/2;
       if(gridSizeX%2==0){
            hexagonGroup.x-=hexagonWidth/4;
@@ -42,11 +44,12 @@ function onCreate() {
       if(gridSizeY%2==0){
            hexagonGroup.y-=hexagonHeight/8;
       }
-    marker = game.add.sprite(0,0,"atlas");
-    marker.frameName = "watertile.png";
-    marker.anchor.setTo(0.5);
-    marker.visible=false;
-    hexagonGroup.add(marker);         
+      */
+    paintTile = game.add.sprite(0,0,"atlas");
+    paintTile.frameName = "watertile.png";
+    paintTile.anchor.setTo(0.5);
+    paintTile.visible=false;
+    hexagonGroup.add(paintTile);         
 }
 
 function onUpdate(){
@@ -82,27 +85,26 @@ function checkHex(){
             }
         }
     }
-    placeMarker(candidateX,candidateY);
+    placePaintTile(candidateX,candidateY);
 }
  
-function placeMarker(posX,posY){
+function placePaintTile(posX,posY){
     if(posX<0 || posY<0 || posY>=gridSizeY || posX>columns[posY%2]-1){
-        marker.visible=false;
+        paintTile.visible=false;
     }
     else{
-        marker.visible=true;
-        marker.x = hexagonWidth*posX;
-        marker.y = hexagonHeight/4*3*posY+hexagonHeight/2;
+        paintTile.visible=true;
+        paintTile.x = hexagonWidth*posX;
+        paintTile.y = hexagonHeight/4*3*posY+hexagonHeight/2;
         if(posY%2==0){
-            marker.x += hexagonWidth/2;
+            paintTile.x += hexagonWidth/2;
         }
         else{
-            marker.x += hexagonWidth;
+            paintTile.x += hexagonWidth;
         }
     }
 }
 
-function changeTile(){
-    console.log("button is being pressed");
-    this.frameName = "watertile.png";
+changeTile = function(tile){
+    tile.setFrames("watertile.png", "watertile.png", "watertile.png", "watertile.png");
 }
