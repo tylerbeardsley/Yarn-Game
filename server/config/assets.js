@@ -33,6 +33,11 @@ files = _.map(files, function(file, key){
 var development = {
     js: js.concat([
         'js/phaser.js',
+        'js/boot.js',
+        'js/preload.js',
+        'js/gametitle.js',
+        'js/thegame.js',
+        'js/gameover.js',
         'js/main.js'
     ]),
     css: css.concat([
