@@ -10,4 +10,4 @@ gameOver.prototype = {
 	playTheGame: function(){
 		this.game.state.start("TheGame");
 	}
-}
+};

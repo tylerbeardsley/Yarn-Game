@@ -1,23 +1,25 @@
-var theGame = function(game){
-	hexagonWidth = 108;
-	hexagonHeight = 128;
-	gridSizeX = 20; // actually counts number of hexes by pairs of rows
-	gridSizeY = 8;  // actual number of rows
-	columns = [Math.ceil(gridSizeX/2),Math.floor(gridSizeX/2)];
-	moveIndex = 0;
-	sectorWidth = hexagonWidth;
-	sectorHeight = hexagonHeight/4*3;
-	gradient = (hexagonHeight/4)/(hexagonWidth/2);
-	paintTile = null;
-	hexagonGroup = null;
-	paletteText = "";
-	paletteBackground = null;
-	paletteGroup = null;
-	scaleFactor = 0.75; // Defaults at 0.75 but can change depending on size of user's screen
-	cursors = null; // used to move the Camera around
-};
+var theGame = function(game){};
 
-gameTitle.prototype = {
+theGame.prototype = {
+	init: function(width, height){
+		hexagonWidth = 108;
+		hexagonHeight = 128;
+		gridSizeX = width; // actually counts number of hexes by pairs of rows
+		gridSizeY = height;  // actual number of rows
+		columns = [Math.ceil(gridSizeX/2),Math.floor(gridSizeX/2)];
+		moveIndex = 0;
+		sectorWidth = hexagonWidth;
+		sectorHeight = hexagonHeight/4*3;
+		gradient = (hexagonHeight/4)/(hexagonWidth/2);
+		paintTile = null;
+		hexagonGroup = null;
+		paletteText = "";
+		paletteBackground = null;
+		paletteGroup = null;
+		scaleFactor = 0.75; // Defaults at 0.75 but can change depending on size of user's screen
+		cursors = null; // used to move the Camera around
+	},
+
 	create: function(){
 		game.camera.bounds = null; // makes no bounds 
 	    hexagonGroup = game.add.group();
@@ -175,4 +177,4 @@ gameTitle.prototype = {
 	}
 
 	// NOTE: At some point will need to call this.game.state.start("GameOver", true, false, score);
-}
+};

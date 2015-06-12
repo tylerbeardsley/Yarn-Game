@@ -1,0 +1,204 @@
+{"frames": [
+
+{
+	"filename": "\"Game\".png",
+	"frame": {"x":2,"y":2,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "\"Over\".png",
+	"frame": {"x":112,"y":2,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "GameOverFace.png",
+	"frame": {"x":222,"y":2,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "Sword.png",
+	"frame": {"x":332,"y":2,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "beer.png",
+	"frame": {"x":2,"y":132,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "beholder.png",
+	"frame": {"x":112,"y":132,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "cubepyramid.png",
+	"frame": {"x":222,"y":132,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "d20.png",
+	"frame": {"x":332,"y":132,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "demonstar.png",
+	"frame": {"x":2,"y":262,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "heart.png",
+	"frame": {"x":112,"y":262,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "hex.png",
+	"frame": {"x":222,"y":262,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "lightning trixel.png",
+	"frame": {"x":332,"y":262,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "mushroom.png",
+	"frame": {"x":2,"y":392,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "pacman.png",
+	"frame": {"x":112,"y":392,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "pokeball.png",
+	"frame": {"x":222,"y":392,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "powerranger.png",
+	"frame": {"x":332,"y":392,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "redbluecube.png",
+	"frame": {"x":2,"y":522,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "redcube.png",
+	"frame": {"x":112,"y":522,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "redhead.png",
+	"frame": {"x":222,"y":522,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "ryu.png",
+	"frame": {"x":332,"y":522,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "skull.png",
+	"frame": {"x":2,"y":652,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "trixelcreate.png",
+	"frame": {"x":112,"y":652,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "turtleshell.png",
+	"frame": {"x":222,"y":652,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+},
+{
+	"filename": "yellowflower.png",
+	"frame": {"x":332,"y":652,"w":108,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
+	"sourceSize": {"w":108,"h":128}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "MemoryTrixelSprites.png",
+	"format": "RGBA8888",
+	"size": {"w":442,"h":782},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:8919fef07e334c8170575bba7e81d6b9:00210988fcca2f363cfb8b14b32ec0d0:f839f1e75aa1daf54b347ea33952982e$"
+}
+}
