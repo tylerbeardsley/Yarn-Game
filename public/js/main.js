@@ -3,8 +3,8 @@ console.log('js goes here you sick little monkey');
 var game = new Phaser.Game(document.body.offsetWidth, document.body.offsetHeight, Phaser.AUTO, "", {preload: onPreload, create: onCreate, update: onUpdate});                
 var hexagonWidth = 108;
 var hexagonHeight = 128;
-var gridSizeX = 40; // basic is 17
-var gridSizeY = 15;  // basic is 7
+var gridSizeX = 20; // actually counts number of hexes by pairs of rows
+var gridSizeY = 8;  // actual number of rows
 var columns = [Math.ceil(gridSizeX/2),Math.floor(gridSizeX/2)];
 var moveIndex;
 var sectorWidth = hexagonWidth;
@@ -31,15 +31,24 @@ function onCreate() {
     hexagonGroup.scale.x = scaleFactor;
     hexagonGroup.scale.y = scaleFactor;
     game.stage.backgroundColor = "#ffffff"
+
+    paintTile = game.add.sprite(0,0,"atlas");
+    paintTile.frameName = "clouds.png";
+    paintTile.anchor.setTo(0.5);
+    paintTile.visible=false;
+    hexagonGroup.add(paintTile);
+
     for(var i = 0; i < gridSizeY/2; i ++){
         for(var j = 0; j < gridSizeX; j ++){
             if(gridSizeY%2==0 || i+1<gridSizeY/2 || j%2==0){
-                var hexagonX = hexagonWidth*j/2;
-                var hexagonY = hexagonHeight*i*1.5+(hexagonHeight/4*3)*(j%2);
+                var hexagonX = (hexagonWidth * j)/2;
+                var hexagonY = hexagonHeight * i * 1.5 + (hexagonHeight/4*3)*(j%2);
                 //MY CODE STARTS HERE
-                var hexagon = game.add.button(hexagonX, hexagonY, "atlas", changeTile, this, "rocktile.png", "rocktile.png", "rocktile.png", "rocktile.png");
+                var hexagon = game.add.button(hexagonX, hexagonY, "atlas", null, this, 
+                              "rocktile.png", "rocktile.png", "rocktile.png", "rocktile.png");
+                hexagon.events.onInputOver.add(paint, this); // handles click and hold
+                hexagon.events.onInputDown.add(paint, this); // handles click
                 hexagon.input.useHandCursor = false;
-                //var hexagon = game.add.sprite(hexagonX,hexagonY,"hexagon");
                 hexagonGroup.add(hexagon);
             }
         }
@@ -55,12 +64,6 @@ function onCreate() {
            hexagonGroup.y-=hexagonHeight/8;
       }
     */
-
-    paintTile = game.add.sprite(0,0,"atlas");
-    paintTile.frameName = "clouds.png";
-    paintTile.anchor.setTo(0.5);
-    paintTile.visible=false;
-    hexagonGroup.add(paintTile);
 
     // CREATE FONT
     paletteText = game.add.bitmapText(-40, 30, "desyrel", "Tile Palette", 60);
@@ -167,10 +170,13 @@ function placePaintTile(posX,posY){
     }
 }
 
-changeTile = function(tile){
-    tile.setFrames(paintTile.frameName, paintTile.frameName, paintTile.frameName, paintTile.frameName);
-}
-
 changePaint = function(tile){
     paintTile.frameName = tile.frameName;
+}
+
+paint = function(tile){
+    // Checks for click and drag painting
+    if(game.input.mousePointer.isDown){
+        tile.setFrames(paintTile.frameName, paintTile.frameName, paintTile.frameName, paintTile.frameName);
+    }
 }
