@@ -21,6 +21,9 @@ theGame.prototype = {
 	},
 
 	create: function(){
+		// prevents right click popups
+		game.canvas.oncontextmenu = function (e) {e.preventDefault();};
+
 		game.camera.bounds = null; // makes no bounds 
 	    hexagonGroup = game.add.group();
 	    hexagonGroup.scale.x = scaleFactor;
@@ -75,6 +78,8 @@ theGame.prototype = {
 	    var index = 0;
 	    var xCor = 0;
 	    var yCor = 0;
+
+	    // Tile Numbers are Hardcoded right now might want to change
 	    for(var i = 0; i < 3; i ++){
 	        yCor += hexagonHeight + 5;
 	        for(var j = 0; j < 2; j ++){
@@ -90,29 +95,26 @@ theGame.prototype = {
 	            index++;
 	        }
 	    }
-	    paletteGroup.x = game.camera.width - 200;
+
+	    paletteGroup.fixedToCamera = true; // keeps palette in correct position
+	    paletteGroup.cameraOffset.x = game.camera.width - 200;
+
 	    cursors = game.input.keyboard.createCursorKeys();
 	},
 
 	update: function(){
 	    moveIndex = game.input.addMoveCallback(this.checkHex, this);
-	    // Moves camera around
-	    if (cursors.left.isDown){
-	        game.camera.x -= 4;
-	        paletteGroup.x -= 4;
-	    }
-	    else if (cursors.right.isDown){
-	        game.camera.x += 4;
-	        paletteGroup.x += 4;
-	    }
 
-	    if (cursors.up.isDown){
-	        game.camera.y -= 4;
-	        paletteGroup.y -= 4;
+	    // right click and drag to move camera
+	    if(game.input.mousePointer.isDown && game.input.mouse.button == 2){
+	    	if (game.origDragPoint){
+	    		game.camera.x += game.origDragPoint.x - game.input.activePointer.position.x;
+	    		game.camera.y += game.origDragPoint.y - game.input.activePointer.position.y;
+	    	}
+	    	game.origDragPoint = game.input.activePointer.position.clone();
 	    }
-	    else if (cursors.down.isDown){
-	        game.camera.y += 4;
-	        paletteGroup.y += 4;
+	    else{
+	    	game.origDragPoint = null;
 	    }
 	},
 
@@ -171,7 +173,7 @@ theGame.prototype = {
 
 	paint: function(tile){
     	// Checks for click and drag painting
-    	if(game.input.mousePointer.isDown){
+    	if(game.input.mousePointer.isDown && game.input.mouse.button == 0){
         	tile.setFrames(paintTile.frameName, paintTile.frameName, paintTile.frameName, paintTile.frameName);
     	}
 	}
