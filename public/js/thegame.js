@@ -158,6 +158,10 @@ theGame.prototype = {
 	            paintTile.x += hexagonWidth;
 	        }
 	    }
+	    // NEED TO DO ONE MORE THING HERE
+	    // works for close to (0, 0) but exponentially worse as you move away
+	    //paintTile.x -= scaleFactor*posX;
+	    //paintTile.y -= scaleFactor*posY;
 	},
 
 	changePaint: function(tile){
@@ -174,13 +178,11 @@ theGame.prototype = {
 	zoom: function(){
 		if(game.input.mouse.wheelDelta == Phaser.Mouse.WHEEL_UP){
 			// zoom in
-			console.log("zooming in");
 			game.world.scale.x += 0.1;
 			game.world.scale.y += 0.1;
 			scaleFactor += 0.1;
 		}
 		else if(game.input.mouse.wheelDelta == Phaser.Mouse.WHEEL_DOWN){
-			console.log("zooming out");
 			game.world.scale.x -= 0.1;
 			game.world.scale.y -= 0.1;
 			scaleFactor -= 0.1;
