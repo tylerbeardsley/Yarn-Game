@@ -30,12 +30,7 @@ theGame.prototype = {
 	    hexagonGroup.scale.y = scaleFactor;
 	    game.stage.backgroundColor = "#ffffff"
 
-	    paintTile = game.add.sprite(0,0,"atlas");
-	    paintTile.frameName = "clouds.png";
-	    paintTile.anchor.setTo(0.5);
-	    paintTile.visible=false;
-	    hexagonGroup.add(paintTile);
-
+	    //add all map tiles
 	    for(var i = 0; i < gridSizeY/2; i ++){
 	        for(var j = 0; j < gridSizeX; j ++){
 	            if(gridSizeY%2==0 || i+1<gridSizeY/2 || j%2==0){
@@ -51,8 +46,8 @@ theGame.prototype = {
 	            }
 	        }
 	    }
+	    
 	    // THIS SECTION CENTERS THE GRID TO THE MAP
-	    /*
 	    hexagonGroup.x = (game.width-hexagonWidth*Math.ceil(gridSizeX/2))/2;
 	      if(gridSizeX%2==0){
 	           hexagonGroup.x-=hexagonWidth/4;
@@ -61,7 +56,14 @@ theGame.prototype = {
 	      if(gridSizeY%2==0){
 	           hexagonGroup.y-=hexagonHeight/8;
 	      }
-	    */
+
+	    // add painting tile
+	    paintTile = game.add.sprite(0,0,"atlas");
+	    paintTile.frameName = "clouds.png";
+	    paintTile.anchor.setTo(0.5);
+	    paintTile.visible = false;
+	    hexagonGroup.add(paintTile);
+	    
 
 	    // CREATE FONT
 	    paletteText = game.add.bitmapText(-40, 30, "desyrel", "Tile Palette", 60);
