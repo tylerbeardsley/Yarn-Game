@@ -2,7 +2,7 @@ var theGame = function(game){};
 
 theGame.prototype = {
 	init: function(width, height){
-		hexagonWidth = 108;
+		hexagonWidth = 111;
 		hexagonHeight = 128;
 		gridSizeX = width; // actually counts number of hexes by pairs of rows
 		gridSizeY = height;  // actual number of rows
@@ -24,7 +24,7 @@ theGame.prototype = {
 		// prevents right click popups
 		game.canvas.oncontextmenu = function (e) {e.preventDefault();};
 
-		game.camera.bounds = null; // makes no bounds 
+		game.camera.bounds = null; // no bounds for camera
 	    hexagonGroup = game.add.group();
 	    hexagonGroup.scale.x = scaleFactor;
 	    hexagonGroup.scale.y = scaleFactor;
@@ -46,16 +46,6 @@ theGame.prototype = {
 	            }
 	        }
 	    }
-	    
-	    // THIS SECTION CENTERS THE GRID TO THE MAP
-	    hexagonGroup.x = (game.width-hexagonWidth*Math.ceil(gridSizeX/2))/2;
-	      if(gridSizeX%2==0){
-	           hexagonGroup.x-=hexagonWidth/4;
-	      }
-	    hexagonGroup.y = (game.height-Math.ceil(gridSizeY/2)*hexagonHeight-Math.floor(gridSizeY/2)*hexagonHeight/2)/2;
-	      if(gridSizeY%2==0){
-	           hexagonGroup.y-=hexagonHeight/8;
-	      }
 
 	    // add painting tile
 	    paintTile = game.add.sprite(0,0,"atlas");
@@ -81,21 +71,19 @@ theGame.prototype = {
 	    var xCor = 0;
 	    var yCor = 0;
 
-	    // Tile Numbers are Hardcoded right now might want to change
-	    for(var i = 0; i < 3; i ++){
-	        yCor += hexagonHeight + 5;
-	        for(var j = 0; j < 2; j ++){
-	            if(j == 0){
-	                xCor = 0;
-	            }
-	            else{
-	                xCor = hexagonWidth + 10;
-	            }
-	            var tile = game.add.button(xCor, yCor, "atlas", this.changePaint, this, index, index, index, index);
-	            hexagon.input.useHandCursor = true;
-	            paletteGroup.add(tile);
-	            index++;
-	        }
+	    // Place different land tiles on palette
+	    for(var i = 0; i < 7; i++){ // really don't want to use 7 here. Want to find length of JSON Hash
+	    	if(i % 2 == 0){
+	    		xCor = 0;
+	    		yCor += hexagonHeight + 5;
+	    	}
+	    	else{
+	    		xCor = hexagonWidth + 10;
+	    	}
+	    	var tile = game.add.button(xCor, yCor, "atlas", this.changePaint, this, index, index, index, index);
+	        hexagon.input.useHandCursor = true;
+	        paletteGroup.add(tile);
+	        index++;
 	    }
 
 	    paletteGroup.fixedToCamera = true; // keeps palette in correct position

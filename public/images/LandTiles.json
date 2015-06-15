@@ -2,59 +2,67 @@
 
 "clouds.png":
 {
-	"frame": {"x":2,"y":2,"w":108,"h":128},
+	"frame": {"x":2,"y":2,"w":111,"h":128},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
-	"sourceSize": {"w":108,"h":128}
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
+	"sourceSize": {"w":111,"h":128}
 },
 "lavatile.png":
 {
-	"frame": {"x":2,"y":132,"w":108,"h":128},
+	"frame": {"x":2,"y":132,"w":111,"h":128},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
-	"sourceSize": {"w":108,"h":128}
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
+	"sourceSize": {"w":111,"h":128}
 },
 "purpleforest.png":
 {
-	"frame": {"x":2,"y":262,"w":108,"h":128},
+	"frame": {"x":2,"y":262,"w":111,"h":128},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
-	"sourceSize": {"w":108,"h":128}
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
+	"sourceSize": {"w":111,"h":128}
 },
 "rocktile.png":
 {
-	"frame": {"x":2,"y":392,"w":108,"h":128},
+	"frame": {"x":2,"y":392,"w":111,"h":128},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
-	"sourceSize": {"w":108,"h":128}
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
+	"sourceSize": {"w":111,"h":128}
 },
 "sandtile.png":
 {
-	"frame": {"x":2,"y":522,"w":108,"h":128},
+	"frame": {"x":2,"y":522,"w":111,"h":128},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
-	"sourceSize": {"w":108,"h":128}
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
+	"sourceSize": {"w":111,"h":128}
+},
+"treetops.png":
+{
+	"frame": {"x":2,"y":652,"w":111,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
+	"sourceSize": {"w":111,"h":128}
 },
 "watertile.png":
 {
-	"frame": {"x":2,"y":652,"w":108,"h":128},
+	"frame": {"x":2,"y":782,"w":111,"h":128},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":128},
-	"sourceSize": {"w":108,"h":128}
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
+	"sourceSize": {"w":111,"h":128}
 }},
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker",
 	"version": "1.0",
 	"image": "LandTiles.png",
 	"format": "RGBA8888",
-	"size": {"w":112,"h":782},
+	"size": {"w":115,"h":912},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:d7b351eca7907db2faab16683e4fb0d6:451eb8a0c76f3736a31a26c154145959:155c3fdbd445ebf1e0e92a3647874604$"
+	"smartupdate": "$TexturePacker:SmartUpdate:98aca89de59e0ee943fdcc0070aa4ac1:048334fcfa505545168af9e28a2eacb6:155c3fdbd445ebf1e0e92a3647874604$"
 }
 }
