@@ -24,6 +24,9 @@ theGame.prototype = {
 		// prevents right click popups
 		game.canvas.oncontextmenu = function (e) {e.preventDefault();};
 
+		// zoom function
+		game.input.mouse.mouseWheelCallback = this.zoom;
+
 		game.camera.bounds = null; // no bounds for camera
 	    hexagonGroup = game.add.group();
 	    hexagonGroup.scale.x = scaleFactor;
@@ -166,6 +169,22 @@ theGame.prototype = {
     	if(game.input.mousePointer.isDown && game.input.mouse.button == 0){
         	tile.setFrames(paintTile.frameName, paintTile.frameName, paintTile.frameName, paintTile.frameName);
     	}
+	},
+
+	zoom: function(){
+		if(game.input.mouse.wheelDelta == Phaser.Mouse.WHEEL_UP){
+			// zoom in
+			console.log("zooming in");
+			game.world.scale.x += 0.1;
+			game.world.scale.y += 0.1;
+			scaleFactor += 0.1;
+		}
+		else if(game.input.mouse.wheelDelta == Phaser.Mouse.WHEEL_DOWN){
+			console.log("zooming out");
+			game.world.scale.x -= 0.1;
+			game.world.scale.y -= 0.1;
+			scaleFactor -= 0.1;
+		}
 	}
 
 	// NOTE: At some point will need to call this.game.state.start("GameOver", true, false, score);

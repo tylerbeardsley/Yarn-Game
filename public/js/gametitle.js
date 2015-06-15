@@ -1,7 +1,7 @@
 var gameTitle = function(game){
 	// Set a couple variables
-	width = 11;
-	height = 7;
+	width = 25;
+	height = 18;
 };
 
 gameTitle.prototype = {
