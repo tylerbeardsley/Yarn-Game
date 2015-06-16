@@ -140,9 +140,11 @@ theGame.prototype = {
 	            }
 	        }
 	    }
+	    // this call is used to display paint tile
 	    this.placePaintTile(candidateX,candidateY);
 	},
 
+	// may or may not want this - needs testing to see if people like seeing the paint tile
 	placePaintTile: function(posX,posY){
 	    if(posX<0 || posY<0 || posY>=gridSizeY || posX>columns[posY%2]-1){
 	        paintTile.visible=false;
@@ -158,10 +160,6 @@ theGame.prototype = {
 	            paintTile.x += hexagonWidth;
 	        }
 	    }
-	    // NEED TO DO ONE MORE THING HERE
-	    // works for close to (0, 0) but exponentially worse as you move away
-	    //paintTile.x -= scaleFactor*posX;
-	    //paintTile.y -= scaleFactor*posY;
 	},
 
 	changePaint: function(tile){
@@ -178,13 +176,13 @@ theGame.prototype = {
 	zoom: function(){
 		if(game.input.mouse.wheelDelta == Phaser.Mouse.WHEEL_UP){
 			// zoom in
-			game.world.scale.x += 0.1;
-			game.world.scale.y += 0.1;
+			hexagonGroup.scale.x += 0.1;
+			hexagonGroup.scale.y += 0.1;
 			scaleFactor += 0.1;
 		}
 		else if(game.input.mouse.wheelDelta == Phaser.Mouse.WHEEL_DOWN){
-			game.world.scale.x -= 0.1;
-			game.world.scale.y -= 0.1;
+			hexagonGroup.scale.x -= 0.1;
+			hexagonGroup.scale.y -= 0.1;
 			scaleFactor -= 0.1;
 		}
 	}
