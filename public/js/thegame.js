@@ -2,7 +2,7 @@ var theGame = function(game){};
 
 theGame.prototype = {
 	init: function(width, height){
-		hexagonWidth = 111;
+		hexagonWidth = 110; // actual size is 111 but that shows hex outline
 		hexagonHeight = 128;
 		gridSizeX = width; // actually counts number of hexes by pairs of rows
 		gridSizeY = height;  // actual number of rows
@@ -16,8 +16,8 @@ theGame.prototype = {
 		paletteText = "";
 		paletteBackground = null;
 		paletteGroup = null;
-		scaleFactor = 0.75; // Defaults at 0.75 but can change depending on size of user's screen
-		cursors = null; // used to move the Camera around
+		saveButton = null;
+		scaleFactor = 0.75; // Defaults at 0.75 but can change with scroll zoom
 	},
 
 	create: function(){
@@ -31,7 +31,7 @@ theGame.prototype = {
 	    hexagonGroup = game.add.group();
 	    hexagonGroup.scale.x = scaleFactor;
 	    hexagonGroup.scale.y = scaleFactor;
-	    game.stage.backgroundColor = "#ffffff"
+	    game.stage.backgroundColor = "#000000"; // #ffffff is maybe better?
 
 	    //add all map tiles
 	    for(var i = 0; i < gridSizeY/2; i ++){
@@ -63,9 +63,9 @@ theGame.prototype = {
 
 	    // CREATE Pallete
 	    paletteGroup = game.add.group();
-	    paletteBackground = game.add.button(-55,0,"white-rectangle", null, this);
+	    paletteBackground = game.add.button(-55,-20,"white-rectangle", null, this);
 	    paletteBackground.scale.x = 1.3;
-	    paletteBackground.scale.y = 1;
+	    paletteBackground.scale.y = 2;
 	    paletteGroup.add(paletteBackground);
 	    paletteGroup.add(paletteText);
 	    paletteGroup.scale.x = scaleFactor;
@@ -75,7 +75,7 @@ theGame.prototype = {
 	    var yCor = 0;
 
 	    // Place different land tiles on palette
-	    for(var i = 0; i < 7; i++){ // really don't want to use 7 here. Want to find length of JSON Hash
+	    for(var i = 0; i < 11; i++){ // really don't want to use 11 here. Want to find length of JSON Hash
 	    	if(i % 2 == 0){
 	    		xCor = 0;
 	    		yCor += hexagonHeight + 5;
@@ -92,7 +92,9 @@ theGame.prototype = {
 	    paletteGroup.fixedToCamera = true; // keeps palette in correct position
 	    paletteGroup.cameraOffset.x = game.camera.width - 200;
 
-	    cursors = game.input.keyboard.createCursorKeys();
+	    saveButton = game.add.button(game.camera.width/2 - 150, game.camera.height - 130, "save-map", this.saveMap, this);
+	    saveButton.fixedToCamera = true;
+	    saveButton.input.useHandCursor = true;
 	},
 
 	update: function(){
@@ -185,6 +187,10 @@ theGame.prototype = {
 			hexagonGroup.scale.y -= 0.1;
 			scaleFactor -= 0.1;
 		}
+	},
+
+	saveMap: function(){
+		console.log("Saved Map (but not really)");
 	}
 
 	// NOTE: At some point will need to call this.game.state.start("GameOver", true, false, score);

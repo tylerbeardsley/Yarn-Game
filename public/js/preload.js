@@ -10,6 +10,7 @@ preload.prototype = {
     	this.game.load.atlas("trixels", "/images/MemoryTrixelSprites.png", "/images/MemoryTrixelSprites.json");
     	this.game.load.image("arrow-up", "/images/arrow-button-up.png");
     	this.game.load.image("arrow-down", "/images/arrow-button-down.png");
+    	this.game.load.image("save-map", "/images/newtrixel.png");
     	// This is where I can load a game title and display a loading bar preloaded in previous state
 	},
 

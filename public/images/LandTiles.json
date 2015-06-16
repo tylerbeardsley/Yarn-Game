@@ -1,6 +1,6 @@
 {"frames": {
 
-"clouds.png":
+"beachsurface.png":
 {
 	"frame": {"x":2,"y":2,"w":111,"h":128},
 	"rotated": false,
@@ -8,7 +8,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
 	"sourceSize": {"w":111,"h":128}
 },
-"lavatile.png":
+"clouds.png":
 {
 	"frame": {"x":2,"y":132,"w":111,"h":128},
 	"rotated": false,
@@ -16,7 +16,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
 	"sourceSize": {"w":111,"h":128}
 },
-"purpleforest.png":
+"house.png":
 {
 	"frame": {"x":2,"y":262,"w":111,"h":128},
 	"rotated": false,
@@ -24,7 +24,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
 	"sourceSize": {"w":111,"h":128}
 },
-"rocktile.png":
+"lavatile.png":
 {
 	"frame": {"x":2,"y":392,"w":111,"h":128},
 	"rotated": false,
@@ -32,7 +32,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
 	"sourceSize": {"w":111,"h":128}
 },
-"sandtile.png":
+"modesthome.png":
 {
 	"frame": {"x":2,"y":522,"w":111,"h":128},
 	"rotated": false,
@@ -40,7 +40,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
 	"sourceSize": {"w":111,"h":128}
 },
-"treetops.png":
+"purpleforest.png":
 {
 	"frame": {"x":2,"y":652,"w":111,"h":128},
 	"rotated": false,
@@ -48,9 +48,41 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
 	"sourceSize": {"w":111,"h":128}
 },
-"watertile.png":
+"purpletrees.png":
 {
 	"frame": {"x":2,"y":782,"w":111,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
+	"sourceSize": {"w":111,"h":128}
+},
+"rocktile.png":
+{
+	"frame": {"x":2,"y":912,"w":111,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
+	"sourceSize": {"w":111,"h":128}
+},
+"sandtile.png":
+{
+	"frame": {"x":2,"y":1042,"w":111,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
+	"sourceSize": {"w":111,"h":128}
+},
+"treetops.png":
+{
+	"frame": {"x":2,"y":1172,"w":111,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
+	"sourceSize": {"w":111,"h":128}
+},
+"watertile.png":
+{
+	"frame": {"x":2,"y":1302,"w":111,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
@@ -61,8 +93,8 @@
 	"version": "1.0",
 	"image": "LandTiles.png",
 	"format": "RGBA8888",
-	"size": {"w":115,"h":912},
+	"size": {"w":115,"h":1432},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:98aca89de59e0ee943fdcc0070aa4ac1:048334fcfa505545168af9e28a2eacb6:155c3fdbd445ebf1e0e92a3647874604$"
+	"smartupdate": "$TexturePacker:SmartUpdate:259f86ddc37bc2cb6afa344aac9762e8:144143bfe175c22ea942f686dc777ac2:155c3fdbd445ebf1e0e92a3647874604$"
 }
 }
