@@ -8,9 +8,33 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
 	"sourceSize": {"w":111,"h":128}
 },
+"celestialsky.png":
+{
+	"frame": {"x":115,"y":2,"w":111,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
+	"sourceSize": {"w":111,"h":128}
+},
 "clouds.png":
 {
-	"frame": {"x":2,"y":132,"w":111,"h":128},
+	"frame": {"x":228,"y":2,"w":111,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
+	"sourceSize": {"w":111,"h":128}
+},
+"genericgrass.png":
+{
+	"frame": {"x":341,"y":2,"w":111,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
+	"sourceSize": {"w":111,"h":128}
+},
+"genericsky.png":
+{
+	"frame": {"x":454,"y":2,"w":111,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
@@ -18,7 +42,7 @@
 },
 "house.png":
 {
-	"frame": {"x":2,"y":262,"w":111,"h":128},
+	"frame": {"x":567,"y":2,"w":111,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
@@ -26,7 +50,7 @@
 },
 "lavatile.png":
 {
-	"frame": {"x":2,"y":392,"w":111,"h":128},
+	"frame": {"x":680,"y":2,"w":111,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
@@ -34,7 +58,15 @@
 },
 "modesthome.png":
 {
-	"frame": {"x":2,"y":522,"w":111,"h":128},
+	"frame": {"x":793,"y":2,"w":111,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
+	"sourceSize": {"w":111,"h":128}
+},
+"nightsky.png":
+{
+	"frame": {"x":906,"y":2,"w":111,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
@@ -42,7 +74,15 @@
 },
 "purpleforest.png":
 {
-	"frame": {"x":2,"y":652,"w":111,"h":128},
+	"frame": {"x":1019,"y":2,"w":111,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
+	"sourceSize": {"w":111,"h":128}
+},
+"purplesun.png":
+{
+	"frame": {"x":1132,"y":2,"w":111,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
@@ -50,7 +90,7 @@
 },
 "purpletrees.png":
 {
-	"frame": {"x":2,"y":782,"w":111,"h":128},
+	"frame": {"x":1245,"y":2,"w":111,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
@@ -58,7 +98,7 @@
 },
 "rocktile.png":
 {
-	"frame": {"x":2,"y":912,"w":111,"h":128},
+	"frame": {"x":1358,"y":2,"w":111,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
@@ -66,7 +106,7 @@
 },
 "sandtile.png":
 {
-	"frame": {"x":2,"y":1042,"w":111,"h":128},
+	"frame": {"x":1471,"y":2,"w":111,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
@@ -74,7 +114,7 @@
 },
 "treetops.png":
 {
-	"frame": {"x":2,"y":1172,"w":111,"h":128},
+	"frame": {"x":1584,"y":2,"w":111,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
@@ -82,7 +122,7 @@
 },
 "watertile.png":
 {
-	"frame": {"x":2,"y":1302,"w":111,"h":128},
+	"frame": {"x":1697,"y":2,"w":111,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":128},
@@ -93,8 +133,8 @@
 	"version": "1.0",
 	"image": "LandTiles.png",
 	"format": "RGBA8888",
-	"size": {"w":115,"h":1432},
+	"size": {"w":1810,"h":132},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:259f86ddc37bc2cb6afa344aac9762e8:144143bfe175c22ea942f686dc777ac2:155c3fdbd445ebf1e0e92a3647874604$"
+	"smartupdate": "$TexturePacker:SmartUpdate:12f7bfad106c96660f6c9f7d7cafeaf8:ef8f5aaeeddd565cc95d18b63b57be2a:155c3fdbd445ebf1e0e92a3647874604$"
 }
 }

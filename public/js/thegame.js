@@ -75,7 +75,7 @@ theGame.prototype = {
 	    var yCor = 0;
 
 	    // Place different land tiles on palette
-	    for(var i = 0; i < 11; i++){ // really don't want to use 11 here. Want to find length of JSON Hash
+	    for(var i = 0; i < 16; i++){ // really don't want to use 16 here. Want to find length of JSON Hash
 	    	if(i % 2 == 0){
 	    		xCor = 0;
 	    		yCor += hexagonHeight + 5;
@@ -191,6 +191,8 @@ theGame.prototype = {
 
 	saveMap: function(){
 		console.log("Saved Map (but not really)");
+		localStorage.setItem("test", "This should be a JSON map");
+		console.log(localStorage.getItem("test"));
 	}
 
 	// NOTE: At some point will need to call this.game.state.start("GameOver", true, false, score);
