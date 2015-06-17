@@ -8,20 +8,32 @@ gameTitle.prototype = {
 	create: function(){
 		// can create gameTitle sprite here if I want
 		console.log("game title is getting called");
-		var setGridSize = game.add.bitmapText(document.body.offsetWidth/2, 30, "desyrel", "How Big Would You Like Your Map?", 45);
+		var setGridSize = game.add.bitmapText(document.body.offsetWidth/2, 30, 
+							"desyrel", "How Big Would You Like Your Map?", 45);
 		setGridSize.anchor.setTo(0.5, 0.5);
-		var playButton = game.add.button(document.body.offsetWidth/2, 320, "trixels", this.playTheGame, this);
+
+		var playButton = game.add.button(document.body.offsetWidth/2 + 75, 320, 
+										"trixels", this.playTheGame, this);
 		playButton.anchor.setTo(0.5, 0.5);
 		playButton.input.useHandCursor = true;
+
+		var characterButton = game.add.button(playButton.x - 150, 320, "trixels",
+											  this.buildCharacter, this,
+											  "ryu.png", "ryu.png", "ryu.png", "ryu.png");
+		characterButton.anchor.setTo(0.5, 0.5);
+		characterButton.input.useHandCursor = true;
+
 		game.stage.backgroundColor = "#7d7d7d";
 
 		// set up text for buttons
-		widthText = game.add.text(document.body.offsetWidth/2 - 225, 150, "Width: " + width.toString(), 
-			                          {font: "30px Arial", fill: "#000000"});
+		widthText = game.add.text(document.body.offsetWidth/2 - 225, 150, 
+								  "Width: " + width.toString(), 
+			                      {font: "30px Arial", fill: "#000000"});
 		widthText.anchor.set(0.5);
 
-		heightText = game.add.text(document.body.offsetWidth/2 + 225, 150, height.toString() + " :Height", 
-			                          {font: "30px Arial", fill: "#000000"});
+		heightText = game.add.text(document.body.offsetWidth/2 + 225, 150, 
+								   height.toString() + " :Height", 
+			                       {font: "30px Arial", fill: "#000000"});
 		heightText.anchor.set(0.5);
 
 		// buttons for width
@@ -54,7 +66,8 @@ gameTitle.prototype = {
 	},
 
 	playTheGame: function(){
-		this.game.state.start("TheGame", true, false, width * 2, height); // width * 2 because game treats as two rows
+		// width * 2 because game treats as two rows
+		this.game.state.start("TheGame", true, false, width * 2, height);
 	},
 
 	addOneW: function(){
@@ -79,5 +92,9 @@ gameTitle.prototype = {
 			height--;
 		}
 		heightText.text = height.toString() + " :Height";
+	},
+
+	buildCharacter: function(){
+		this.game.state.start("Character", true, false);
 	}
 };

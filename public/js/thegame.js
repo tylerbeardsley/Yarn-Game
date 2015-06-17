@@ -38,10 +38,11 @@ theGame.prototype = {
 	        for(var j = 0; j < gridSizeX; j ++){
 	            if(gridSizeY%2==0 || i+1<gridSizeY/2 || j%2==0){
 	                var hexagonX = (hexagonWidth * j)/2;
-	                var hexagonY = hexagonHeight * i * 1.5 + (hexagonHeight/4*3)*(j%2);
+	                var hexagonY = hexagonHeight*i*1.5+(hexagonHeight/4*3)*(j%2);
 	                //MY CODE STARTS HERE
-	                var hexagon = game.add.button(hexagonX, hexagonY, "atlas", null, this, 
-	                              "rocktile.png", "rocktile.png", "rocktile.png", "rocktile.png");
+	                var hexagon = game.add.button(hexagonX, hexagonY, "atlas", 
+	                			  null, this, "rocktile.png", "rocktile.png", 
+	                			  "rocktile.png", "rocktile.png");
 	                hexagon.events.onInputOver.add(this.paint, this); // handles click and hold
 	                hexagon.events.onInputDown.add(this.paint, this); // handles click
 	                hexagon.input.useHandCursor = false;
@@ -75,7 +76,7 @@ theGame.prototype = {
 	    var yCor = 0;
 
 	    // Place different land tiles on palette
-	    for(var i = 0; i < 16; i++){ // really don't want to use 16 here. Want to find length of JSON Hash
+	    for(var i = 0; i < 16; i++){ // Need to find length of JSON hash
 	    	if(i % 2 == 0){
 	    		xCor = 0;
 	    		yCor += hexagonHeight + 5;
@@ -83,7 +84,8 @@ theGame.prototype = {
 	    	else{
 	    		xCor = hexagonWidth + 10;
 	    	}
-	    	var tile = game.add.button(xCor, yCor, "atlas", this.changePaint, this, index, index, index, index);
+	    	var tile = game.add.button(xCor, yCor, "atlas", this.changePaint, 
+	    							   this, index, index, index, index);
 	        hexagon.input.useHandCursor = true;
 	        paletteGroup.add(tile);
 	        index++;
@@ -92,7 +94,8 @@ theGame.prototype = {
 	    paletteGroup.fixedToCamera = true; // keeps palette in correct position
 	    paletteGroup.cameraOffset.x = game.camera.width - 200;
 
-	    saveButton = game.add.button(game.camera.width/2 - 150, game.camera.height - 130, "save-map", this.saveMap, this);
+	    saveButton = game.add.button(game.camera.width/2 - 150, 
+	    			  game.camera.height - 130, "save-map", this.saveMap, this);
 	    saveButton.fixedToCamera = true;
 	    saveButton.input.useHandCursor = true;
 	},
@@ -171,7 +174,8 @@ theGame.prototype = {
 	paint: function(tile){
     	// Checks for click and drag painting
     	if(game.input.mousePointer.isDown && game.input.mouse.button == 0){
-        	tile.setFrames(paintTile.frameName, paintTile.frameName, paintTile.frameName, paintTile.frameName);
+        	tile.setFrames(paintTile.frameName, paintTile.frameName, 
+        				   paintTile.frameName, paintTile.frameName);
     	}
 	},
 
