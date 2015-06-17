@@ -10,7 +10,8 @@ characterBuilder.prototype = {
 		defenseVal = 0;
 
 		xOffset = 250;
-		yOffset = 120;
+		yOffset = 95;
+		statTileScale = 0.7;
 
 		this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 		this.scale.pageAlignHorizontally = true;
@@ -26,19 +27,19 @@ characterBuilder.prototype = {
 		stats = game.add.group();
 
 		hitPointsTile = game.add.sprite(xOffset, 0, "hitpoints");
-		hitPointsTile.scale.setTo(0.85, 0.85);
+		hitPointsTile.scale.setTo(statTileScale, statTileScale);
 		hitPointsTile.anchor.setTo(0.5, 0.5);
 		moveTile = game.add.sprite(xOffset, yOffset, "move");
-		moveTile.scale.setTo(0.85, 0.85);
+		moveTile.scale.setTo(statTileScale, statTileScale);
 		moveTile.anchor.setTo(0.5, 0.5);
 		rangeTile = game.add.sprite(xOffset, yOffset*2, "range");
-		rangeTile.scale.setTo(0.85, 0.85);
+		rangeTile.scale.setTo(statTileScale, statTileScale);
 		rangeTile.anchor.setTo(0.5, 0.5);
 		attackTile = game.add.sprite(xOffset, yOffset*3, "attack");
-		attackTile.scale.setTo(0.85, 0.85);
+		attackTile.scale.setTo(statTileScale, statTileScale);
 		attackTile.anchor.setTo(0.5, 0.5);
 		defenseTile = game.add.sprite(xOffset, yOffset*4, "defense");
-		defenseTile.scale.setTo(0.85, 0.85);
+		defenseTile.scale.setTo(statTileScale, statTileScale);
 		defenseTile.anchor.setTo(0.5, 0.5);
 
 		stats.add(hitPointsTile);
