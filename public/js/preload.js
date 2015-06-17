@@ -21,6 +21,7 @@ preload.prototype = {
         this.game.load.image("hitpoints", "/images/CharacterTiles/heart.png");
         this.game.load.image("move", "/images/CharacterTiles/greenblast.png");
         this.game.load.image("range", "/images/CharacterTiles/purplegradient.png");
+        this.game.load.image("attack", "/images/CharacterTiles/redhex.png");
         this.game.load.image("defense", "/images/CharacterTiles/hex.png");
     	
 	},
