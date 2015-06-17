@@ -2,8 +2,8 @@ var theGame = function(game){};
 
 theGame.prototype = {
 	init: function(width, height){
-		hexagonWidth = 110; // actual size is 111 but that shows hex outline
-		hexagonHeight = 128;
+		hexagonWidth = 109; // actual size is 111 but that shows hex outline
+		hexagonHeight = 127; // actual size is 128
 		gridSizeX = width; // actually counts number of hexes by pairs of rows
 		gridSizeY = height;  // actual number of rows
 		columns = [Math.ceil(gridSizeX/2),Math.floor(gridSizeX/2)];
@@ -182,14 +182,14 @@ theGame.prototype = {
 	zoom: function(){
 		if(game.input.mouse.wheelDelta == Phaser.Mouse.WHEEL_UP){
 			// zoom in
-			hexagonGroup.scale.x += 0.1;
-			hexagonGroup.scale.y += 0.1;
-			scaleFactor += 0.1;
+			hexagonGroup.scale.x += 0.05;
+			hexagonGroup.scale.y += 0.05;
+			scaleFactor += 0.05;
 		}
 		else if(game.input.mouse.wheelDelta == Phaser.Mouse.WHEEL_DOWN){
-			hexagonGroup.scale.x -= 0.1;
-			hexagonGroup.scale.y -= 0.1;
-			scaleFactor -= 0.1;
+			hexagonGroup.scale.x -= 0.05;
+			hexagonGroup.scale.y -= 0.05;
+			scaleFactor -= 0.05;
 		}
 	},
 

@@ -18,11 +18,13 @@ preload.prototype = {
         
         // images for characterBuilder
         this.game.load.image("character", "/images/cooldude.png");
-        this.game.load.image("hitpoints", "/images/CharacterTiles/heart.png");
-        this.game.load.image("move", "/images/CharacterTiles/greenblast.png");
-        this.game.load.image("range", "/images/CharacterTiles/purplegradient.png");
-        this.game.load.image("attack", "/images/CharacterTiles/redhex.png");
-        this.game.load.image("defense", "/images/CharacterTiles/hex.png");
+        this.game.load.image("hitpoints", "/images/CharacterTiles/life.png");
+        this.game.load.image("move", "/images/CharacterTiles/move.png");
+        this.game.load.image("range", "/images/CharacterTiles/range.png");
+        this.game.load.image("attack", "/images/CharacterTiles/attack.png");
+        this.game.load.image("defense", "/images/CharacterTiles/defense.png");
+        this.game.load.image("plus", "/images/CharacterTiles/plus.png");
+        this.game.load.image("minus", "/images/CharacterTiles/minus.png");
     	
 	},
 

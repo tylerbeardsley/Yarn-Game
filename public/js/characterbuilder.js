@@ -2,11 +2,14 @@ var characterBuilder = function(game){};
 
 characterBuilder.prototype = {
 	create: function(){
-		hitPointVal = 0;
+		hitPointsVal = 1;
 		moveVal = 0;
-		rangeVal = 0;
+		rangeVal = 1;
 		attackVal = 0;
 		defenseVal = 0;
+
+		xOffset = 250;
+		yOffset = 120;
 
 		this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 		this.scale.pageAlignHorizontally = true;
@@ -21,16 +24,21 @@ characterBuilder.prototype = {
 
 		stats = game.add.group();
 
-		hitPointsTile = game.add.sprite(250, 0, "hitpoints");
+		hitPointsTile = game.add.sprite(xOffset, 0, "hitpoints");
 		hitPointsTile.scale.setTo(0.85, 0.85);
-		moveTile = game.add.sprite(250, 120, "move");
+		hitPointsTile.anchor.setTo(0.5, 0.5);
+		moveTile = game.add.sprite(xOffset, yOffset, "move");
 		moveTile.scale.setTo(0.85, 0.85);
-		rangeTile = game.add.sprite(250, 240, "range");
+		moveTile.anchor.setTo(0.5, 0.5);
+		rangeTile = game.add.sprite(xOffset, yOffset*2, "range");
 		rangeTile.scale.setTo(0.85, 0.85);
-		attackTile = game.add.sprite(250, 360, "attack");
+		rangeTile.anchor.setTo(0.5, 0.5);
+		attackTile = game.add.sprite(xOffset, yOffset*3, "attack");
 		attackTile.scale.setTo(0.85, 0.85);
-		defenseTile = game.add.sprite(250, 480, "defense");
+		attackTile.anchor.setTo(0.5, 0.5);
+		defenseTile = game.add.sprite(xOffset, yOffset*4, "defense");
 		defenseTile.scale.setTo(0.85, 0.85);
+		defenseTile.anchor.setTo(0.5, 0.5);
 
 		stats.add(hitPointsTile);
 		stats.add(moveTile);
@@ -40,45 +48,108 @@ characterBuilder.prototype = {
 
 		var style = {font: "32px Arial", fill: "#000000", align: "center"};
 
-		hitPointText = game.add.text(hitPointsTile.width/2 + hitPointsTile.x, 
-									 hitPointsTile.height/2 + hitPointsTile.y, 
-									 hitPointVal.toString(), style);
-		hitPointText.anchor.set(0.5);
+		hitPointsText = game.add.text(hitPointsTile.x, hitPointsTile.y, 
+									 hitPointsVal.toString(), style);
+		hitPointsText.anchor.set(0.5);
 
-		moveText = game.add.text(moveTile.width/2 + moveTile.x, 
-								 moveTile.height/2 + moveTile.y, 
+		moveText = game.add.text(moveTile.x, moveTile.y + 25, 
 								 moveVal.toString(), style);
 		moveText.anchor.set(0.5);
 
-		rangeText = game.add.text(rangeTile.width/2 + rangeTile.x, 
-								 rangeTile.height/2 + rangeTile.y, 
-								 rangeVal.toString(), style);
+		rangeText = game.add.text(rangeTile.x, rangeTile.y + 25, 
+								  rangeVal.toString(), style);
 		rangeText.anchor.set(0.5);
 
-		attackText = game.add.text(attackTile.width/2 + attackTile.x, 
-								   attackTile.height/2 + attackTile.y, 
+		attackText = game.add.text(attackTile.x, attackTile.y + 25, 
 								   attackVal.toString(), style);
 		attackText.anchor.set(0.5);
 
-		defenseText = game.add.text(defenseTile.width/2 + defenseTile.x, 
-								 	defenseTile.height/2 + defenseTile.y, 
+		defenseText = game.add.text(defenseTile.x, defenseTile.y + 25, 
 								 	defenseVal.toString(), style);
 		defenseText.anchor.set(0.5);
 		
-		stats.add(hitPointText);
+		stats.add(hitPointsText);
 		stats.add(moveText);
 		stats.add(rangeText);
 		stats.add(attackText);
 		stats.add(defenseText);
 
-		// centers stats on y axis
-		stats.y = (document.body.offsetHeight/2) - (stats.height/2);
+		// creates plus and minus buttons
+		for(var i = 0; i < 5; i++){
+			var minusButton = game.add.button(xOffset-75, yOffset*i, "minus",
+										this.decreaseStat, this);
+			minusButton.scale.setTo(0.4, 0.4);
+			minusButton.anchor.setTo(0.5, 0.5);
+			minusButton.input.useHandCursor = true;
+
+			var plusButton = game.add.button(xOffset+75, yOffset*i, "plus",
+										this.increaseStat, this);
+			plusButton.scale.setTo(0.4, 0.4);
+			plusButton.anchor.setTo(0.5, 0.5);
+			plusButton.input.useHandCursor = true;
+
+			stats.add(minusButton);
+			stats.add(plusButton);
+		}
+
+		// centers stats on y axis EXCEPT NOT REALLY
+		stats.y = (document.body.offsetHeight/2) - stats.height/2;
 	},
 
-	increaseStat: function(num){
-		num++;
-		console.log("please work");
-		//blah
-		// adding a new change
+	increaseStat: function(button){
+		if(button.y == yOffset*4){
+			defenseVal++;
+			defenseText.text = defenseVal.toString();
+		}
+		else if(button.y == yOffset*3){
+			attackVal++;
+			attackText.text = attackVal.toString();
+		}
+		else if(button.y == yOffset*2){
+			rangeVal++;
+			rangeText.text = rangeVal.toString();
+		}
+		else if(button.y == yOffset){
+			moveVal++;
+			moveText.text = moveVal.toString();
+		}
+		else if(button.y == 0){
+			hitPointsVal++;
+			hitPointsText.text = hitPointsVal.toString();
+		}
+
+	},
+
+	decreaseStat: function(button){
+		if(button.y == yOffset*4){
+			if(defenseVal > 0){
+				defenseVal--;
+				defenseText.text = defenseVal.toString();
+			}
+		}
+		else if(button.y == yOffset*3){
+			if(attackVal > 0){
+				attackVal--;
+				attackText.text = attackVal.toString();
+			}
+		}
+		else if(button.y == yOffset*2){
+			if(rangeVal > 1){
+				rangeVal--;
+				rangeText.text = rangeVal.toString();
+			}
+		}
+		else if(button.y == yOffset){
+			if(moveVal > 0){
+				moveVal--;
+				moveText.text = moveVal.toString();
+			}
+		}
+		else if(button.y == 0){
+			if(hitPointsVal > 1){
+				hitPointsVal--;
+				hitPointsText.text = hitPointsVal.toString();
+			}
+		}
 	}
 }
