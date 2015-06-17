@@ -2,6 +2,7 @@ var characterBuilder = function(game){};
 
 characterBuilder.prototype = {
 	create: function(){
+		totalStatPoints = 15;
 		hitPointsVal = 1;
 		moveVal = 0;
 		rangeVal = 1;
@@ -97,25 +98,32 @@ characterBuilder.prototype = {
 	},
 
 	increaseStat: function(button){
-		if(button.y == yOffset*4){
-			defenseVal++;
-			defenseText.text = defenseVal.toString();
-		}
-		else if(button.y == yOffset*3){
-			attackVal++;
-			attackText.text = attackVal.toString();
-		}
-		else if(button.y == yOffset*2){
-			rangeVal++;
-			rangeText.text = rangeVal.toString();
-		}
-		else if(button.y == yOffset){
-			moveVal++;
-			moveText.text = moveVal.toString();
-		}
-		else if(button.y == 0){
-			hitPointsVal++;
-			hitPointsText.text = hitPointsVal.toString();
+		if(totalStatPoints > 0){
+			if(button.y == yOffset*4){
+				defenseVal++;
+				totalStatPoints--;
+				defenseText.text = defenseVal.toString();
+			}
+			else if(button.y == yOffset*3){
+				attackVal++;
+				totalStatPoints--;
+				attackText.text = attackVal.toString();
+			}
+			else if(button.y == yOffset*2){
+				rangeVal++;
+				totalStatPoints--;
+				rangeText.text = rangeVal.toString();
+			}
+			else if(button.y == yOffset){
+				moveVal++;
+				totalStatPoints--;
+				moveText.text = moveVal.toString();
+			}
+			else if(button.y == 0){
+				hitPointsVal++;
+				totalStatPoints--;
+				hitPointsText.text = hitPointsVal.toString();
+			}
 		}
 
 	},
@@ -124,30 +132,35 @@ characterBuilder.prototype = {
 		if(button.y == yOffset*4){
 			if(defenseVal > 0){
 				defenseVal--;
+				totalStatPoints++;
 				defenseText.text = defenseVal.toString();
 			}
 		}
 		else if(button.y == yOffset*3){
 			if(attackVal > 0){
 				attackVal--;
+				totalStatPoints++;
 				attackText.text = attackVal.toString();
 			}
 		}
 		else if(button.y == yOffset*2){
 			if(rangeVal > 1){
 				rangeVal--;
+				totalStatPoints++;
 				rangeText.text = rangeVal.toString();
 			}
 		}
 		else if(button.y == yOffset){
 			if(moveVal > 0){
 				moveVal--;
+				totalStatPoints++;
 				moveText.text = moveVal.toString();
 			}
 		}
 		else if(button.y == 0){
 			if(hitPointsVal > 1){
 				hitPointsVal--;
+				totalStatPoints++;
 				hitPointsText.text = hitPointsVal.toString();
 			}
 		}
