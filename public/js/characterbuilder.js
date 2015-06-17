@@ -77,6 +77,8 @@ characterBuilder.prototype = {
 
 	increaseStat: function(num){
 		num++;
+		console.log("please work");
 		//blah
+		// adding a new change
 	}
 }
