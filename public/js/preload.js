@@ -4,8 +4,7 @@ preload.prototype = {
 	preload: function(){
 		console.log("we are preloading");
         // images for game and menu
-		this.game.load.atlasJSONHash("atlas", "/images/LandTiles.png", 
-                                     "/images/LandTiles.json");
+        this.game.load.atlasJSONHash("atlas", "/images/LandTiles.png", "/images/LandTiles.js");
     	this.game.load.bitmapFont("desyrel", 
                             "/images/phaserFonts/bitmapFonts/desyrel-pink.png", 
         					"/images/phaserFonts/bitmapFonts/desyrel-pink.xml");

@@ -16,6 +16,7 @@ theGame.prototype = {
 		paletteText = "";
 		paletteBackground = null;
 		paletteGroup = null;
+		palettePanel = -1; // keeps track of which panel number to display for palette tiles
 		saveButton = null;
 		scaleFactor = 0.75; // Defaults at 0.75 but can change with scroll zoom
 	},
@@ -71,25 +72,21 @@ theGame.prototype = {
 	    paletteGroup.add(paletteText);
 	    paletteGroup.scale.x = scaleFactor;
 	    paletteGroup.scale.y = scaleFactor;
-	    var index = 0;
-	    var xCor = 0;
-	    var yCor = 0;
 
 	    // Place different land tiles on palette
-	    for(var i = 0; i < 16; i++){ // Need to find length of JSON hash
-	    	if(i % 2 == 0){
-	    		xCor = 0;
-	    		yCor += hexagonHeight + 5;
-	    	}
-	    	else{
-	    		xCor = hexagonWidth + 10;
-	    	}
-	    	var tile = game.add.button(xCor, yCor, "atlas", this.changePaint, 
-	    							   this, index, index, index, index);
-	        hexagon.input.useHandCursor = true;
-	        paletteGroup.add(tile);
-	        index++;
-	    }
+	    // create buttons to change panel display
+	    nextPanel = game.add.button(150, 90, "plus", this.placePaletteTiles, this);
+	    nextPanel.scale.setTo(0.3, 0.3);
+	    nextPanel.input.useHandCursor = true;
+	    previousPanel = game.add.button(50, 90, "minus", this.placePaletteTiles, this);
+	    previousPanel.scale.setTo(0.3, 0.3);
+	    previousPanel.input.useHandCursor = true;
+
+	    // intialize palette
+	    this.placePaletteTiles(nextPanel);
+
+	    paletteGroup.add(nextPanel);
+	    paletteGroup.add(previousPanel);
 
 	    paletteGroup.fixedToCamera = true; // keeps palette in correct position
 	    paletteGroup.cameraOffset.x = game.camera.width - 200;
@@ -165,6 +162,35 @@ theGame.prototype = {
 	            paintTile.x += hexagonWidth;
 	        }
 	    }
+	},
+
+	// NEED TO SET LIMIT TO PALETTE PANEL NUMBER
+	placePaletteTiles: function(button){
+		if(button.key == "plus"){
+			palettePanel++;
+		}
+		else if(button.key == "minus"){
+			palettePanel--;
+		}
+		if(palettePanel > -1){
+			var index = 0 + (8*palettePanel);
+		    var xCor = 0;
+		    var yCor = 0;
+			for(var i = 0; i < 8; i++){
+		    	if(i % 2 == 0){
+		    		xCor = 0;
+		    		yCor += hexagonHeight + 5;
+		    	}
+		    	else{
+		    		xCor = hexagonWidth + 10;
+		    	}
+		    	var tile = game.add.button(xCor, yCor, "atlas", this.changePaint, 
+		    							   this, index, index, index, index);
+		        tile.input.useHandCursor = true;
+		        paletteGroup.add(tile);
+		        index++;
+		    }
+		}
 	},
 
 	changePaint: function(tile){
