@@ -2,20 +2,20 @@ var characterBuilder = function(game){};
 
 characterBuilder.prototype = {
 	create: function(){
-		totalStatPoints = 15;
 		hitPointsVal = 1;
 		moveVal = 0;
 		rangeVal = 1;
 		attackVal = 0;
 		defenseVal = 0;
+		totalStatPoints = 18;
 
 		xOffset = 250;
 		yOffset = 95;
 		statTileScale = 0.7;
 
 		this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-		this.scale.pageAlignHorizontally = true;
-		this.scale.pageAlignVertically = true;
+		//this.scale.pageAlignHorizontally = true;
+		//this.scale.pageAlignVertically = true;
 		this.scale.setScreenSize(true);
 		game.stage.backgroundColor = "#7d7d7d";
 		
@@ -26,6 +26,7 @@ characterBuilder.prototype = {
 
 		stats = game.add.group();
 
+		// Actual Tiles
 		hitPointsTile = game.add.sprite(xOffset, 0, "hitpoints");
 		hitPointsTile.scale.setTo(statTileScale, statTileScale);
 		hitPointsTile.anchor.setTo(0.5, 0.5);
@@ -41,14 +42,19 @@ characterBuilder.prototype = {
 		defenseTile = game.add.sprite(xOffset, yOffset*4, "defense");
 		defenseTile.scale.setTo(statTileScale, statTileScale);
 		defenseTile.anchor.setTo(0.5, 0.5);
+		totalTile = game.add.sprite(xOffset, yOffset*5, "total");
+		totalTile.scale.setTo(statTileScale, statTileScale);
+		totalTile.anchor.setTo(0.5, 0.5);
 
 		stats.add(hitPointsTile);
 		stats.add(moveTile);
 		stats.add(rangeTile);
 		stats.add(attackTile);
 		stats.add(defenseTile);
+		stats.add(totalTile);
 
-		var style = {font: "32px Arial", fill: "#000000", align: "center"};
+		// Numbers in tiles that change
+		var style = {font: "32px Arial", fill: "#ffffff", align: "center"};
 
 		hitPointsText = game.add.text(hitPointsTile.x, hitPointsTile.y, 
 									 hitPointsVal.toString(), style);
@@ -69,14 +75,51 @@ characterBuilder.prototype = {
 		defenseText = game.add.text(defenseTile.x, defenseTile.y + 25, 
 								 	defenseVal.toString(), style);
 		defenseText.anchor.set(0.5);
+
+		totalText = game.add.text(totalTile.x, totalTile.y + 5,
+								  totalStatPoints.toString(), style);
+		totalText.anchor.set(0.5);
 		
 		stats.add(hitPointsText);
 		stats.add(moveText);
 		stats.add(rangeText);
 		stats.add(attackText);
 		stats.add(defenseText);
+		stats.add(totalText);
 
-		// creates plus and minus buttons
+		// adds titles for stats
+		hpTitle = game.add.bitmapText(hitPointsTile.x - 200, hitPointsTile.y, 
+									  "desyrel", "Life:", 50);
+		hpTitle.anchor.set(0.5);
+
+		mTitle = game.add.bitmapText(moveTile.x - 200, moveTile.y, 
+									  "desyrel", "Move:", 50);
+		mTitle.anchor.set(0.5);
+
+		rTitle = game.add.bitmapText(rangeTile.x - 200, rangeTile.y, 
+									  "desyrel", "Range:", 50);
+		rTitle.anchor.set(0.5);
+
+		aTitle = game.add.bitmapText(attackTile.x - 200, attackTile.y, 
+									  "desyrel", "Attack:", 50);
+		aTitle.anchor.set(0.5);
+
+		dTitle = game.add.bitmapText(defenseTile.x - 200, defenseTile.y, 
+									  "desyrel", "Defense:", 50);
+		dTitle.anchor.set(0.5);
+
+		tTitle = game.add.bitmapText(totalTile.x - 200, totalTile.y, 
+									  "desyrel", "Points:", 50);
+		tTitle.anchor.set(0.5);
+
+		stats.add(hpTitle);
+		stats.add(mTitle);
+		stats.add(rTitle);
+		stats.add(aTitle);
+		stats.add(dTitle);
+		stats.add(tTitle);
+
+		// creates plus and minus buttons for tiles
 		for(var i = 0; i < 5; i++){
 			var minusButton = game.add.button(xOffset-75, yOffset*i, "minus",
 										this.decreaseStat, this);
@@ -94,8 +137,12 @@ characterBuilder.prototype = {
 			stats.add(plusButton);
 		}
 
-		// centers stats on y axis EXCEPT NOT REALLY
-		stats.y = (document.body.offsetHeight/2) - stats.height/2;
+		// centers stats on y axis
+		stats.x = character.x - xOffset*2 - 75;
+		stats.y = character.y - yOffset*2.5;
+
+
+		// Section for Powers, Items, Etc.
 	},
 
 	increaseStat: function(button){
@@ -104,26 +151,31 @@ characterBuilder.prototype = {
 				defenseVal++;
 				totalStatPoints--;
 				defenseText.text = defenseVal.toString();
+				totalText.text = totalStatPoints.toString();
 			}
 			else if(button.y == yOffset*3){
 				attackVal++;
 				totalStatPoints--;
 				attackText.text = attackVal.toString();
+				totalText.text = totalStatPoints.toString();
 			}
 			else if(button.y == yOffset*2){
 				rangeVal++;
 				totalStatPoints--;
 				rangeText.text = rangeVal.toString();
+				totalText.text = totalStatPoints.toString();
 			}
 			else if(button.y == yOffset){
 				moveVal++;
 				totalStatPoints--;
 				moveText.text = moveVal.toString();
+				totalText.text = totalStatPoints.toString();
 			}
 			else if(button.y == 0){
 				hitPointsVal++;
 				totalStatPoints--;
 				hitPointsText.text = hitPointsVal.toString();
+				totalText.text = totalStatPoints.toString();
 			}
 		}
 
@@ -135,6 +187,7 @@ characterBuilder.prototype = {
 				defenseVal--;
 				totalStatPoints++;
 				defenseText.text = defenseVal.toString();
+				totalText.text = totalStatPoints.toString();
 			}
 		}
 		else if(button.y == yOffset*3){
@@ -142,6 +195,7 @@ characterBuilder.prototype = {
 				attackVal--;
 				totalStatPoints++;
 				attackText.text = attackVal.toString();
+				totalText.text = totalStatPoints.toString();
 			}
 		}
 		else if(button.y == yOffset*2){
@@ -149,6 +203,7 @@ characterBuilder.prototype = {
 				rangeVal--;
 				totalStatPoints++;
 				rangeText.text = rangeVal.toString();
+				totalText.text = totalStatPoints.toString();
 			}
 		}
 		else if(button.y == yOffset){
@@ -156,6 +211,7 @@ characterBuilder.prototype = {
 				moveVal--;
 				totalStatPoints++;
 				moveText.text = moveVal.toString();
+				totalText.text = totalStatPoints.toString();
 			}
 		}
 		else if(button.y == 0){
@@ -163,6 +219,7 @@ characterBuilder.prototype = {
 				hitPointsVal--;
 				totalStatPoints++;
 				hitPointsText.text = hitPointsVal.toString();
+				totalText.text = totalStatPoints.toString();
 			}
 		}
 	}

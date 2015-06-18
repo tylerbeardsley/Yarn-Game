@@ -23,6 +23,7 @@ preload.prototype = {
         this.game.load.image("range", "/images/CharacterTiles/range.png");
         this.game.load.image("attack", "/images/CharacterTiles/attack.png");
         this.game.load.image("defense", "/images/CharacterTiles/defense.png");
+        this.game.load.image("total", "/images/CharacterTiles/redhex.png");
         this.game.load.image("plus", "/images/CharacterTiles/plus.png");
         this.game.load.image("minus", "/images/CharacterTiles/minus.png");
     	
