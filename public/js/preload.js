@@ -26,6 +26,7 @@ preload.prototype = {
         this.game.load.image("total", "/images/CharacterTiles/redhex.png");
         this.game.load.image("plus", "/images/CharacterTiles/plus.png");
         this.game.load.image("minus", "/images/CharacterTiles/minus.png");
+        this.game.load.image("background", "/images/CharacterTiles/starBackground.png");
     	
 	},
 

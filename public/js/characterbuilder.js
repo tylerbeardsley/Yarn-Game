@@ -18,6 +18,9 @@ characterBuilder.prototype = {
 		//this.scale.pageAlignVertically = true;
 		this.scale.setScreenSize(true);
 		game.stage.backgroundColor = "#7d7d7d";
+
+		background = game.add.sprite(0, 0, "background");
+		background.scale.setTo(1.5, 1.5);
 		
 		character = game.add.sprite(document.body.offsetWidth/2, 
 									document.body.offsetHeight/2, "character");
