@@ -9,6 +9,9 @@ preload.prototype = {
     	this.game.load.bitmapFont("desyrel", 
                             "/images/phaserFonts/bitmapFonts/desyrel-pink.png", 
         					"/images/phaserFonts/bitmapFonts/desyrel-pink.xml");
+        this.game.load.bitmapFont("goldText",
+                            "/images/phaserFonts/bitmapFonts/desyrel.png",
+                            "/images/phaserFonts/bitmapFonts/desyrel.xml");
     	this.game.load.image("white-rectangle", "/images/white-rectangle.png");
     	this.game.load.atlas("trixels", "/images/MemoryTrixelSprites.png", 
                              "/images/MemoryTrixelSprites.json");

@@ -9,6 +9,24 @@ characterBuilder.prototype = {
 		defenseVal = 0;
 		totalStatPoints = 18;
 
+		//data used to keep track of items and powers
+		numPowers = 4;
+		numItems = 5;
+		powers = [
+			"lightning trixel.png",
+			"demonstar.png",
+			"heart.png",
+			"skull.png"
+		];
+		items = [
+			"pokeball.png",
+			"Sword.png",
+			"mushroom.png",
+			"beer.png",
+			"turtleshell.png"
+		];
+
+
 		xOffset = 250;
 		yOffset = 95;
 		statTileScale = 0.7;
@@ -141,11 +159,46 @@ characterBuilder.prototype = {
 		}
 
 		// centers stats on y axis
-		stats.x = character.x - xOffset*2 - 75;
+		//stats.x = character.x - xOffset*2 - 75;
+		stats.x = 50;
 		stats.y = character.y - yOffset*2.5;
 
 
 		// Section for Powers, Items, Etc.
+		powersAndItems = game.add.group();
+
+		powersText = game.add.bitmapText(0, 0, "goldText", "Powers", 50);
+		powersText.anchor.set(0.5);
+		itemsText = game.add.bitmapText(0, 250, "goldText", "Items/Pets", 50);
+		itemsText.anchor.set(0.5);
+
+		powersAndItems.add(powersText);
+		powersAndItems.add(itemsText);
+
+		// Add power tiles
+		for(var i = 0; i < numPowers; i++){
+			var x = -100 + (75*i);
+			var y = powersText.y + 80;
+			var powerTile = game.add.button(x, y, "trixels", null, this, 
+									powers[i], powers[i], powers[i], powers[i]);
+			powerTile.anchor.setTo(0.5, 0.5);
+			powerTile.scale.setTo(0.6, 0.6);
+			powersAndItems.add(powerTile);
+		}
+
+		// Add item tiles
+		for(var i = 0; i < numItems; i++){
+			var x = -130 + (75*i);
+			var y = itemsText.y + 80;
+			var itemTile = game.add.button(x, y, "trixels", null, this, 
+									items[i], items[i], items[i], items[i]);
+			itemTile.anchor.setTo(0.5, 0.5);
+			itemTile.scale.setTo(0.6, 0.6);
+			powersAndItems.add(itemTile);
+		}
+
+		powersAndItems.x = document.body.offsetWidth - 220;
+		powersAndItems.y = character.y - yOffset*2.5;
 	},
 
 	increaseStat: function(button){
