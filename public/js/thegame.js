@@ -97,6 +97,13 @@ theGame.prototype = {
 	    			  game.camera.height - 130, "save-map", this.saveMap, this);
 	    saveButton.fixedToCamera = true;
 	    saveButton.input.useHandCursor = true;
+
+	    // Add menu button to return to menu
+	    menuButton = game.add.button(0, document.body.offsetHeight, "trixels", this.menu, this, "d20.png", 
+									 "d20.png", "d20.png", "d20.png");
+		menuButton.anchor.setTo(0, 1);
+		menuButton.input.useHandCursor = true;
+		menuButton.fixedToCamera = true;
 	},
 
 	update: function(){
@@ -227,6 +234,11 @@ theGame.prototype = {
 		console.log("Saved Map (but not really)");
 		localStorage.setItem("test", "This should be a JSON map");
 		console.log(localStorage.getItem("test"));
+	},
+
+	menu: function(){
+		//game.state.pause("Character");
+		game.state.start("GameTitle", true, false);
 	}
 
 	// NOTE: At some point will need to call this.game.state.start("GameOver", true, false, score);

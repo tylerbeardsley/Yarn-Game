@@ -32,8 +32,8 @@ characterBuilder.prototype = {
 		statTileScale = 0.7;
 
 		this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-		//this.scale.pageAlignHorizontally = true;
-		//this.scale.pageAlignVertically = true;
+		this.scale.pageAlignHorizontally = true;
+		this.scale.pageAlignVertically = true;
 		this.scale.setScreenSize(true);
 		game.stage.backgroundColor = "#7d7d7d";
 
@@ -201,6 +201,13 @@ characterBuilder.prototype = {
 
 		powersAndItems.x = document.body.offsetWidth - 220;
 		powersAndItems.y = character.y - yOffset*2.5;
+
+		// Add button to return to menu
+		menuButton = game.add.button(0, document.body.offsetHeight, "trixels", this.menu, this, "d20.png", 
+									 "d20.png", "d20.png", "d20.png");
+		menuButton.anchor.setTo(0, 1);
+		menuButton.input.useHandCursor = true;
+		menuButton.fixedToCamera = true;
 	},
 
 	increaseStat: function(button){
@@ -280,5 +287,10 @@ characterBuilder.prototype = {
 				totalText.text = totalStatPoints.toString();
 			}
 		}
+	},
+
+	menu: function(){
+		//game.state.pause("Character");
+		game.state.start("GameTitle", true, false);
 	}
 }
