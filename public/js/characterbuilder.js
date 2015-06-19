@@ -203,9 +203,10 @@ characterBuilder.prototype = {
 		powersAndItems.y = character.y - yOffset*2.5;
 
 		// Add button to return to menu
-		menuButton = game.add.button(0, document.body.offsetHeight, "trixels", this.menu, this, "d20.png", 
+		menuButton = game.add.button(document.body.offsetWidth, document.body.offsetHeight, 
+									 "trixels", this.menu, this, "d20.png", 
 									 "d20.png", "d20.png", "d20.png");
-		menuButton.anchor.setTo(0, 1);
+		menuButton.anchor.setTo(1, 1);
 		menuButton.input.useHandCursor = true;
 		menuButton.fixedToCamera = true;
 	},
