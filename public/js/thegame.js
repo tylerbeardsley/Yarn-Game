@@ -75,11 +75,11 @@ theGame.prototype = {
 
 	    // Place different land tiles on palette
 	    // create buttons to change panel display
-	    nextPanel = game.add.button(150, 90, "trixels", this.placePaletteTiles, 
+	    nextPanel = game.add.button(160, 100, "trixels", this.placePaletteTiles, 
 	    				this, "plus.png", "plus.png", "plus.png", "plus.png");
 	    nextPanel.scale.setTo(0.3, 0.3);
 	    nextPanel.input.useHandCursor = true;
-	    previousPanel = game.add.button(50, 90, "trixels", this.placePaletteTiles, 
+	    previousPanel = game.add.button(40, 100, "trixels", this.placePaletteTiles, 
 	    				this, "minus.png", "minus.png", "minus.png", "minus.png");
 	    previousPanel.scale.setTo(0.3, 0.3);
 	    previousPanel.input.useHandCursor = true;
@@ -172,12 +172,14 @@ theGame.prototype = {
 			palettePanel++;
 		}
 		else if(button.frameName == "minus.png"){
-			palettePanel--;
+			if(palettePanel > 0){
+				palettePanel--;
+			}
 		}
 		if(palettePanel > -1){
 			var index = 0 + (8*palettePanel);
 		    var xCor = 0;
-		    var yCor = 0;
+		    var yCor = 30;
 			for(var i = 0; i < 8; i++){
 		    	if(i % 2 == 0){
 		    		xCor = 0;

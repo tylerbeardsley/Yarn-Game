@@ -12,25 +12,12 @@ preload.prototype = {
                             "/images/phaserFonts/bitmapFonts/desyrel.png",
                             "/images/phaserFonts/bitmapFonts/desyrel.xml");
     	this.game.load.image("white-rectangle", "/images/white-rectangle.png");
-    	//this.game.load.atlas("trixels", "/images/MemoryTrixelSprites.png", 
-        //                     "/images/MemoryTrixelSprites.json");
     	this.game.load.image("arrow-up", "/images/arrow-button-up.png");
     	this.game.load.image("arrow-down", "/images/arrow-button-down.png");
     	this.game.load.image("save-map", "/images/newtrixel.png");
         
         // images for characterBuilder
         this.game.load.atlasJSONHash("trixels", "/images/CharacterStuff.png", "/images/CharacterStuff.js");
-        // this.game.load.image("character", "/images/cooldude.png");
-        // this.game.load.image("hitpoints", "/images/CharacterTiles/life.png");
-        // this.game.load.image("move", "/images/CharacterTiles/move.png");
-        // this.game.load.image("range", "/images/CharacterTiles/range.png");
-        // this.game.load.image("attack", "/images/CharacterTiles/attack.png");
-        // this.game.load.image("defense", "/images/CharacterTiles/defense.png");
-        // this.game.load.image("total", "/images/CharacterTiles/redhex.png");
-        // this.game.load.image("plus", "/images/CharacterTiles/plus.png");
-        // this.game.load.image("minus", "/images/CharacterTiles/minus.png");
-        // this.game.load.image("background", "/images/CharacterTiles/starBackground.png");
-    	
 	},
 
 	create: function(){
