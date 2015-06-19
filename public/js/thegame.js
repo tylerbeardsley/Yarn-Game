@@ -75,10 +75,12 @@ theGame.prototype = {
 
 	    // Place different land tiles on palette
 	    // create buttons to change panel display
-	    nextPanel = game.add.button(150, 90, "plus", this.placePaletteTiles, this);
+	    nextPanel = game.add.button(150, 90, "trixels", this.placePaletteTiles, 
+	    				this, "plus.png", "plus.png", "plus.png", "plus.png");
 	    nextPanel.scale.setTo(0.3, 0.3);
 	    nextPanel.input.useHandCursor = true;
-	    previousPanel = game.add.button(50, 90, "minus", this.placePaletteTiles, this);
+	    previousPanel = game.add.button(50, 90, "trixels", this.placePaletteTiles, 
+	    				this, "minus.png", "minus.png", "minus.png", "minus.png");
 	    previousPanel.scale.setTo(0.3, 0.3);
 	    previousPanel.input.useHandCursor = true;
 
@@ -166,10 +168,10 @@ theGame.prototype = {
 
 	// NEED TO SET LIMIT TO PALETTE PANEL NUMBER
 	placePaletteTiles: function(button){
-		if(button.key == "plus"){
+		if(button.frameName == "plus.png"){
 			palettePanel++;
 		}
-		else if(button.key == "minus"){
+		else if(button.frameName == "minus.png"){
 			palettePanel--;
 		}
 		if(palettePanel > -1){

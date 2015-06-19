@@ -21,9 +21,9 @@ characterBuilder.prototype = {
 		items = [
 			"pokeball.png",
 			"Sword.png",
-			"mushroom.png",
+			"steelsword.png",
 			"beer.png",
-			"turtleshell.png"
+			"healthpotion.png"
 		];
 
 
@@ -37,33 +37,33 @@ characterBuilder.prototype = {
 		this.scale.setScreenSize(true);
 		game.stage.backgroundColor = "#7d7d7d";
 
-		background = game.add.sprite(0, 0, "background");
+		background = game.add.sprite(0, 0, "trixels", "starBackground.png");
 		background.scale.setTo(1.5, 1.5);
 		
 		character = game.add.sprite(document.body.offsetWidth/2, 
-									document.body.offsetHeight/2, "character");
+									document.body.offsetHeight/2, "trixels", "cooldude.png");
 		character.anchor.setTo(0.5, 0.5);
 		character.scale.setTo(0.5, 0.5);
 
 		stats = game.add.group();
 
 		// Actual Tiles
-		hitPointsTile = game.add.sprite(xOffset, 0, "hitpoints");
+		hitPointsTile = game.add.sprite(xOffset, 0, "trixels", "life.png");
 		hitPointsTile.scale.setTo(statTileScale, statTileScale);
 		hitPointsTile.anchor.setTo(0.5, 0.5);
-		moveTile = game.add.sprite(xOffset, yOffset, "move");
+		moveTile = game.add.sprite(xOffset, yOffset, "trixels", "move.png");
 		moveTile.scale.setTo(statTileScale, statTileScale);
 		moveTile.anchor.setTo(0.5, 0.5);
-		rangeTile = game.add.sprite(xOffset, yOffset*2, "range");
+		rangeTile = game.add.sprite(xOffset, yOffset*2, "trixels", "range.png");
 		rangeTile.scale.setTo(statTileScale, statTileScale);
 		rangeTile.anchor.setTo(0.5, 0.5);
-		attackTile = game.add.sprite(xOffset, yOffset*3, "attack");
+		attackTile = game.add.sprite(xOffset, yOffset*3, "trixels", "attack.png");
 		attackTile.scale.setTo(statTileScale, statTileScale);
 		attackTile.anchor.setTo(0.5, 0.5);
-		defenseTile = game.add.sprite(xOffset, yOffset*4, "defense");
+		defenseTile = game.add.sprite(xOffset, yOffset*4, "trixels", "defense.png");
 		defenseTile.scale.setTo(statTileScale, statTileScale);
 		defenseTile.anchor.setTo(0.5, 0.5);
-		totalTile = game.add.sprite(xOffset, yOffset*5, "total");
+		totalTile = game.add.sprite(xOffset, yOffset*5, "trixels", "redhex.png");
 		totalTile.scale.setTo(statTileScale, statTileScale);
 		totalTile.anchor.setTo(0.5, 0.5);
 
@@ -142,14 +142,16 @@ characterBuilder.prototype = {
 
 		// creates plus and minus buttons for tiles
 		for(var i = 0; i < 5; i++){
-			var minusButton = game.add.button(xOffset-75, yOffset*i, "minus",
-										this.decreaseStat, this);
+			var minusButton = game.add.button(xOffset-75, yOffset*i, "trixels",
+											  this.decreaseStat, this, "minus.png", 
+											  "minus.png", "minus.png", "minus.png");
 			minusButton.scale.setTo(0.4, 0.4);
 			minusButton.anchor.setTo(0.5, 0.5);
 			minusButton.input.useHandCursor = true;
 
-			var plusButton = game.add.button(xOffset+75, yOffset*i, "plus",
-										this.increaseStat, this);
+			var plusButton = game.add.button(xOffset+75, yOffset*i, "trixels",
+										this.increaseStat, this, "plus.png",
+										"plus.png", "plus.png", "plus.png");
 			plusButton.scale.setTo(0.4, 0.4);
 			plusButton.anchor.setTo(0.5, 0.5);
 			plusButton.input.useHandCursor = true;

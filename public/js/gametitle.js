@@ -19,7 +19,7 @@ gameTitle.prototype = {
 
 		var characterButton = game.add.button(playButton.x - 150, 320, "trixels",
 											  this.buildCharacter, this,
-											  "ryu.png", "ryu.png", "ryu.png", "ryu.png");
+											  "d20.png", "d20.png", "d20.png", "d20.png");
 		characterButton.anchor.setTo(0.5, 0.5);
 		characterButton.input.useHandCursor = true;
 
