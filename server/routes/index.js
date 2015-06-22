@@ -10,12 +10,14 @@ module.exports = function(server, options) {
 
 		routers = [
 			'./build',
+			'./character',
 			'./static'
 		];
 	} else {
 
 		routers = [	
 			'./api',
+			'./character',
 			'./base',
 			'./static'
 		];

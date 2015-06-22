@@ -2,6 +2,7 @@ var characterBuilder = function(game){};
 
 characterBuilder.prototype = {
 	create: function(){
+		charName = "George Clooney";
 		hitPointsVal = 1;
 		moveVal = 0;
 		rangeVal = 1;
@@ -291,7 +292,11 @@ characterBuilder.prototype = {
 	},
 
 	menu: function(){
-		//game.state.pause("Character");
+		// save character?
+		var data = {name: charName, life: hitPointsVal, move: moveVal, 
+					range: rangeVal, attack: attackVal, defense: defenseVal, 
+					points: totalStatPoints};
+		$.post("/character/button/add", data);
 		game.state.start("GameTitle", true, false);
 	}
 }

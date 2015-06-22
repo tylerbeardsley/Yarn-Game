@@ -18,7 +18,7 @@ module.exports = {
   data: {
 		fixtures: [
       {
-        model: 'cats',
+          model: 'cats',
           items: [
           {
             id: 1,
@@ -26,7 +26,16 @@ module.exports = {
             clicks: 0
           }
         ]
-      }
+      },
+      {
+          model: 'character',
+          items: [
+          {
+            id: 1,
+            name: 'blah'
+          }
+        ]
+      },
 		]
   }
 }
