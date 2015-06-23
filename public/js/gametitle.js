@@ -67,7 +67,13 @@ gameTitle.prototype = {
 
 	playTheGame: function(){
 		// width * 2 because game treats as two rows
-		this.game.state.start("TheGame", true, false, width * 2, height);
+		var mapTiles = [];
+		$.getJSON("/map/button/load", function(data){
+	    	width = data.width*2;
+	    	height = data.height;
+	    	mapTiles = data.tiles;
+	    	game.state.start("TheGame", true, false, width, height, mapTiles);
+	    });
 	},
 
 	addOneW: function(){

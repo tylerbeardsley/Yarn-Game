@@ -25,15 +25,24 @@ module.exports = {
             name: 'Stimpy',
             clicks: 0
           }
-        ]
+          ]
       },
       {
           model: 'character',
           items: [
           {
-            id: 1,
+            id: 1
           }
-        ]
+          ]
+      },
+      {
+          model: 'map',
+          items:[
+          {
+            id: 1
+          }
+          ]
+
       },
 		]
   }

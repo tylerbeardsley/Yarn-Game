@@ -1,7 +1,7 @@
 var theGame = function(game){};
 
 theGame.prototype = {
-	init: function(width, height){
+	init: function(width, height, theMap){
 		hexagonWidth = 109; // actual size is 111 but that shows hex outline
 		hexagonHeight = 127; // actual size is 128
 		gridSizeX = width; // actually counts number of hexes by pairs of rows
@@ -11,6 +11,8 @@ theGame.prototype = {
 		sectorWidth = hexagonWidth;
 		sectorHeight = hexagonHeight/4*3;
 		gradient = (hexagonHeight/4)/(hexagonWidth/2);
+		mapTiles = theMap;
+		console.log("The Map Tiles that are being passed: "+mapTiles);
 		paintTile = null;
 		hexagonGroup = null;
 		paletteText = "";
@@ -35,18 +37,20 @@ theGame.prototype = {
 	    game.stage.backgroundColor = "#000000";
 
 	    //add all map tiles
+	    var index = 0;
 	    for(var i = 0; i < gridSizeY/2; i ++){
 	        for(var j = 0; j < gridSizeX; j ++){
 	            if(gridSizeY%2==0 || i+1<gridSizeY/2 || j%2==0){
 	                var hexagonX = (hexagonWidth * j)/2;
 	                var hexagonY = hexagonHeight*i*1.5+(hexagonHeight/4*3)*(j%2);
 	                var hexagon = game.add.button(hexagonX, hexagonY, "atlas", 
-	                			  null, this, "rocktile.png", "rocktile.png", 
-	                			  "rocktile.png", "rocktile.png");
+	                			  null, this, mapTiles[index], mapTiles[index], 
+	                			  mapTiles[index], mapTiles[index]);
 	                hexagon.events.onInputOver.add(this.paint, this); // handles click and hold
 	                hexagon.events.onInputDown.add(this.paint, this); // handles click
 	                hexagon.input.useHandCursor = false;
 	                hexagonGroup.add(hexagon);
+	                index++;
 	            }
 	        }
 	    }
@@ -57,6 +61,8 @@ theGame.prototype = {
 	    paintTile.anchor.setTo(0.5);
 	    paintTile.visible = false;
 	    hexagonGroup.add(paintTile);
+
+	    console.log(hexagonGroup.total);
 	    
 
 	    // CREATE FONT
@@ -230,13 +236,20 @@ theGame.prototype = {
 	},
 
 	saveMap: function(){
-		console.log("Saved Map (but not really)");
-		localStorage.setItem("test", "This should be a JSON map");
-		console.log(localStorage.getItem("test"));
+		// SAVE MAP
+		var index = 0;
+		hexagonGroup.forEach(function(button){
+			mapTiles[index] = button.frameName;
+			index++;
+		}, this, true);
+		$.post("/map/button/add", {name: 'map', tiles: mapTiles, 
+								   width: gridSizeX/2, height: gridSizeY});
+	},
+
+	loadMap: function(){
 	},
 
 	menu: function(){
-		//game.state.pause("Character");
 		game.state.start("GameTitle", true, false);
 	}
 
