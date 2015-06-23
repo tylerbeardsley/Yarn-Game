@@ -9,7 +9,7 @@ module.exports = [
     },
     {
         method: 'GET',
-        path: '/character/button/name',
-        config: controller.name
+        path: '/character/button/stats',
+        config: controller.stats
     },
 ]

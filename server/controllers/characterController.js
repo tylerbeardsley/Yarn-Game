@@ -26,13 +26,16 @@ module.exports = {
                         reply(err);
                         return;
                     }
-                    reply({name: character.name});
+                    reply({name: character.name, life: character.life, 
+                           move: character.move, range: character.range,
+                           attack: character.attack, defense: character.defense,
+                           points: character.points});
                 });
             });
         }
     },
     
-    name: {
+    stats: {
         handler: function(request, reply){
 
             // Grab the DB from dogwater
@@ -42,7 +45,10 @@ module.exports = {
             db.character.findOne(1).then(function(character) {
             
                 // Reply with the number of clicks on Stimpy
-                reply({name: character.name});
+                reply({name: character.name, life: character.life, 
+                           move: character.move, range: character.range,
+                           attack: character.attack, defense: character.defense,
+                           points: character.points});
                 
             });
         }

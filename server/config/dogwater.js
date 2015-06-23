@@ -32,7 +32,6 @@ module.exports = {
           items: [
           {
             id: 1,
-            name: 'blah'
           }
         ]
       },

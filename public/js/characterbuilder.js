@@ -2,13 +2,14 @@ var characterBuilder = function(game){};
 
 characterBuilder.prototype = {
 	create: function(){
-		charName = "George Clooney";
-		hitPointsVal = 1;
-		moveVal = 0;
-		rangeVal = 1;
-		attackVal = 0;
-		defenseVal = 0;
-		totalStatPoints = 18;
+		// Adding Character Stat Stuff
+        charName = "George Clooney";
+        hitPointsVal = 1;
+        moveVal = 0;
+        rangeVal = 1;
+        attackVal = 0;
+        defenseVal = 0;
+        totalStatPoints = 18;
 
 		//data used to keep track of items and powers
 		numPowers = 4;
@@ -26,7 +27,6 @@ characterBuilder.prototype = {
 			"beer.png",
 			"healthpotion.png"
 		];
-
 
 		xOffset = 250;
 		yOffset = 95;
@@ -74,40 +74,53 @@ characterBuilder.prototype = {
 		stats.add(attackTile);
 		stats.add(defenseTile);
 		stats.add(totalTile);
+				
 
-		// Numbers in tiles that change
-		var style = {font: "32px Arial", fill: "#ffffff", align: "center"};
+		// LOAD SAVED CHARACTER INFO FROM DATABASE
+        $.getJSON("character/button/stats", function(data){
+            charName = data.name;
+            hitPointsVal = data.life;
+            moveVal = data.move;
+            rangeVal = data.range;
+            attackVal = data.attack;
+            defenseVal = data.defense;
+            totalStatPoints = data.points;
+        	
+			// Numbers in tiles that change
+			var style = {font: "32px Arial", fill: "#ffffff", align: "center"};
 
-		hitPointsText = game.add.text(hitPointsTile.x, hitPointsTile.y, 
-									 hitPointsVal.toString(), style);
-		hitPointsText.anchor.set(0.5);
+			hitPointsText = game.add.text(hitPointsTile.x, hitPointsTile.y, 
+										 hitPointsVal.toString(), style);
+			hitPointsText.anchor.set(0.5);
 
-		moveText = game.add.text(moveTile.x, moveTile.y + 25, 
-								 moveVal.toString(), style);
-		moveText.anchor.set(0.5);
+			moveText = game.add.text(moveTile.x, moveTile.y + 25, 
+									 moveVal.toString(), style);
+			moveText.anchor.set(0.5);
 
-		rangeText = game.add.text(rangeTile.x, rangeTile.y + 25, 
-								  rangeVal.toString(), style);
-		rangeText.anchor.set(0.5);
+			rangeText = game.add.text(rangeTile.x, rangeTile.y + 25, 
+									  rangeVal.toString(), style);
+			rangeText.anchor.set(0.5);
 
-		attackText = game.add.text(attackTile.x, attackTile.y + 25, 
-								   attackVal.toString(), style);
-		attackText.anchor.set(0.5);
+			attackText = game.add.text(attackTile.x, attackTile.y + 25, 
+									   attackVal.toString(), style);
+			attackText.anchor.set(0.5);
 
-		defenseText = game.add.text(defenseTile.x, defenseTile.y + 25, 
-								 	defenseVal.toString(), style);
-		defenseText.anchor.set(0.5);
+			defenseText = game.add.text(defenseTile.x, defenseTile.y + 25, 
+									 	defenseVal.toString(), style);
+			defenseText.anchor.set(0.5);
 
-		totalText = game.add.text(totalTile.x, totalTile.y + 5,
-								  totalStatPoints.toString(), style);
-		totalText.anchor.set(0.5);
-		
-		stats.add(hitPointsText);
-		stats.add(moveText);
-		stats.add(rangeText);
-		stats.add(attackText);
-		stats.add(defenseText);
-		stats.add(totalText);
+			totalText = game.add.text(totalTile.x, totalTile.y + 5,
+									  totalStatPoints.toString(), style);
+			totalText.anchor.set(0.5);
+			
+			stats.add(hitPointsText);
+			stats.add(moveText);
+			stats.add(rangeText);
+			stats.add(attackText);
+			stats.add(defenseText);
+			stats.add(totalText);
+
+		});	
 
 		// adds titles for stats
 		hpTitle = game.add.bitmapText(hitPointsTile.x - 200, hitPointsTile.y, 

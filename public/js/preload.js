@@ -18,7 +18,7 @@ preload.prototype = {
         
         // images for characterBuilder
         this.game.load.atlasJSONHash("trixels", "/images/CharacterStuff.png", "/images/CharacterStuff.js");
-	},
+    },
 
 	create: function(){
 		this.game.state.start("GameTitle");
