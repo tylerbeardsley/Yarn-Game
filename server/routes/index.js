@@ -11,6 +11,7 @@ module.exports = function(server, options) {
 		routers = [
 			'./build',
 			'./character',
+			'./map',
 			'./static'
 		];
 	} else {
@@ -18,6 +19,7 @@ module.exports = function(server, options) {
 		routers = [	
 			'./api',
 			'./character',
+			'./map',
 			'./base',
 			'./static'
 		];

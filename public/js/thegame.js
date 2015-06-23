@@ -32,7 +32,7 @@ theGame.prototype = {
 	    hexagonGroup = game.add.group();
 	    hexagonGroup.scale.x = scaleFactor;
 	    hexagonGroup.scale.y = scaleFactor;
-	    game.stage.backgroundColor = "#000000"; // #ffffff is maybe better?
+	    game.stage.backgroundColor = "#000000";
 
 	    //add all map tiles
 	    for(var i = 0; i < gridSizeY/2; i ++){
@@ -40,7 +40,6 @@ theGame.prototype = {
 	            if(gridSizeY%2==0 || i+1<gridSizeY/2 || j%2==0){
 	                var hexagonX = (hexagonWidth * j)/2;
 	                var hexagonY = hexagonHeight*i*1.5+(hexagonHeight/4*3)*(j%2);
-	                //MY CODE STARTS HERE
 	                var hexagon = game.add.button(hexagonX, hexagonY, "atlas", 
 	                			  null, this, "rocktile.png", "rocktile.png", 
 	                			  "rocktile.png", "rocktile.png");
