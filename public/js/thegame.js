@@ -96,22 +96,23 @@ theGame.prototype = {
 	    paletteGroup.cameraOffset.x = game.camera.width - 200;
 
 	    saveButton = game.add.button(game.camera.width/2 - 150, 
-	    			  game.camera.height - 130, "save-map", this.saveMap, this);
+	    			  game.camera.height - 130, "trixels", this.saveMap, this,
+	    			  "savemap.png", "savemap.png", "savemap.png", "savemap.png");
 	    saveButton.fixedToCamera = true;
 	    saveButton.input.useHandCursor = true;
 
 	    // Add menu button to return to menu
 	    menuButton = game.add.button(0, document.body.offsetHeight, "trixels", 
-	    							 this.menu, this, "d20.png", 
-									 "d20.png", "d20.png", "d20.png");
+	    							 this.menu, this, "menubutton.png", 
+									 "menubutton.png", "menubutton.png", "menubutton.png");
 		menuButton.anchor.setTo(0, 1);
 		menuButton.input.useHandCursor = true;
 		menuButton.fixedToCamera = true;
 
 		// Add load map button
 		loadMapButton = game.add.button(hexagonWidth + 20, document.body.offsetHeight, 
-										"trixels", this.loadMap, this, "redhex.png",
-										"redhex.png", "redhex.png", "redhex.png");
+										"trixels", this.loadMap, this, "loadmap.png",
+										"loadmap.png", "loadmap.png", "loadmap.png");
 		loadMapButton.anchor.setTo(0,1);
 		loadMapButton.input.useHandCursor = true;
 		loadMapButton.fixedToCamera = true;

@@ -232,8 +232,8 @@ characterBuilder.prototype = {
 
 		// Add button to return to menu
 		menuButton = game.add.button(document.body.offsetWidth, document.body.offsetHeight, 
-									 "trixels", this.menu, this, "d20.png", 
-									 "d20.png", "d20.png", "d20.png");
+									 "trixels", this.menu, this, "menubutton.png", 
+									 "menubutton.png", "menubutton.png", "menubutton.png");
 		menuButton.anchor.setTo(1, 1);
 		menuButton.input.useHandCursor = true;
 		menuButton.fixedToCamera = true;

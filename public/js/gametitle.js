@@ -13,13 +13,16 @@ gameTitle.prototype = {
 		setGridSize.anchor.setTo(0.5, 0.5);
 
 		var playButton = game.add.button(document.body.offsetWidth/2 + 75, 320, 
-										"trixels", this.playTheGame, this);
+										"trixels", this.playTheGame, this,
+										"mapmaker.png", "mapmaker.png", "mapmaker.png", 
+										"mapmaker.png");
 		playButton.anchor.setTo(0.5, 0.5);
 		playButton.input.useHandCursor = true;
 
 		var characterButton = game.add.button(playButton.x - 150, 320, "trixels",
 											  this.buildCharacter, this,
-											  "d20.png", "d20.png", "d20.png", "d20.png");
+											  "characterbuilder.png", "characterbuilder.png", 
+											  "characterbuilder.png", "characterbuilder.png");
 		characterButton.anchor.setTo(0.5, 0.5);
 		characterButton.input.useHandCursor = true;
 
