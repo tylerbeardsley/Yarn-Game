@@ -1,7 +1,7 @@
 var theGame = function(game){};
 
 theGame.prototype = {
-	init: function(width, height, theMap){
+	init: function(width, height, theMap, nameID){
 		hexagonWidth = 109; // actual size is 111 but that shows hex outline
 		hexagonHeight = 127; // actual size is 128
 		gridSizeX = width; // actually counts number of hexes by pairs of rows
@@ -12,6 +12,7 @@ theGame.prototype = {
 		sectorHeight = hexagonHeight/4*3;
 		gradient = (hexagonHeight/4)/(hexagonWidth/2);
 		mapTiles = theMap;
+		mapName = nameID; // used to identify map
 		paintTile = null;
 		hexagonGroup = null;
 		paletteText = "";
@@ -247,20 +248,24 @@ theGame.prototype = {
 			mapTiles[index] = button.frameName;
 			index++;
 		}, this, true);
-		$.post("/map/button/add", {name: 'map', tiles: mapTiles, 
+
+		// ask for map name
+		mapName = prompt("Enter your map name", mapName);
+
+		$.post("/map/button/add", {name: mapName, tiles: mapTiles, 
 								   width: gridSizeX/2, height: gridSizeY});
-		alert("Map has been saved!");
+		alert("Your map titled \""+mapName+"\" has been saved!");
 	},
 
 	loadMap: function(){
-		var mapTiles = [];
-		var width = 0;
-		var height = 0;
-		$.getJSON("/map/button/load", function(data){
-	    	width = data.width*2;
-	    	height = data.height;
-	    	mapTiles = data.tiles;
-	    	game.state.start("TheGame", true, false, width, height, mapTiles);
+		var searchName = ""; 
+		searchName = prompt("What map would you like to load?", mapName);
+		$.getJSON("/map/button/load", {name: searchName}, function(data){
+	    	var width = data.width*2;
+	    	var height = data.height;
+	    	var mapTiles = data.tiles;
+	    	var name = data.name;
+	    	game.state.start("TheGame", true, false, width, height, mapTiles, name);
 	    });
 	},
 

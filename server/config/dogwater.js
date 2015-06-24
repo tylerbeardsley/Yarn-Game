@@ -39,7 +39,8 @@ module.exports = {
           model: 'map',
           items:[
           {
-            id: 1
+            id: 1,
+            name: "Cool Map"
           }
           ]
 

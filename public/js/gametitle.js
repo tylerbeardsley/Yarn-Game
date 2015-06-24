@@ -71,7 +71,7 @@ gameTitle.prototype = {
 		for(var i = 0; i < width*2*height; i++){
 			mapTiles[i] = "rocktile.png";
 		}
-	    this.game.state.start("TheGame", true, false, width * 2, height, mapTiles);
+	    this.game.state.start("TheGame", true, false, width * 2, height, mapTiles, "Cool Map");
 	},
 
 	addOneW: function(){
