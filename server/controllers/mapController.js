@@ -34,7 +34,6 @@ module.exports = {
             
             db.map.findOne(1).then(function(map) {
             
-                console.log(map);
                 reply({name: map.name, tiles: map.tiles, 
                            width: map.width, height: map.height});
                 

@@ -12,7 +12,6 @@ theGame.prototype = {
 		sectorHeight = hexagonHeight/4*3;
 		gradient = (hexagonHeight/4)/(hexagonWidth/2);
 		mapTiles = theMap;
-		console.log("The Map Tiles that are being passed: "+mapTiles);
 		paintTile = null;
 		hexagonGroup = null;
 		paletteText = "";
@@ -62,9 +61,6 @@ theGame.prototype = {
 	    paintTile.visible = false;
 	    hexagonGroup.add(paintTile);
 
-	    console.log(hexagonGroup.total);
-	    
-
 	    // CREATE FONT
 	    paletteText = game.add.bitmapText(-40, 30, "desyrel", "Tile Palette", 60);
 
@@ -104,11 +100,20 @@ theGame.prototype = {
 	    saveButton.input.useHandCursor = true;
 
 	    // Add menu button to return to menu
-	    menuButton = game.add.button(0, document.body.offsetHeight, "trixels", this.menu, this, "d20.png", 
+	    menuButton = game.add.button(0, document.body.offsetHeight, "trixels", 
+	    							 this.menu, this, "d20.png", 
 									 "d20.png", "d20.png", "d20.png");
 		menuButton.anchor.setTo(0, 1);
 		menuButton.input.useHandCursor = true;
 		menuButton.fixedToCamera = true;
+
+		// Add load map button
+		loadMapButton = game.add.button(hexagonWidth + 20, document.body.offsetHeight, 
+										"trixels", this.loadMap, this, "redhex.png",
+										"redhex.png", "redhex.png", "redhex.png");
+		loadMapButton.anchor.setTo(0,1);
+		loadMapButton.input.useHandCursor = true;
+		loadMapButton.fixedToCamera = true;
 	},
 
 	update: function(){
@@ -244,9 +249,19 @@ theGame.prototype = {
 		}, this, true);
 		$.post("/map/button/add", {name: 'map', tiles: mapTiles, 
 								   width: gridSizeX/2, height: gridSizeY});
+		alert("Map has been saved!");
 	},
 
 	loadMap: function(){
+		var mapTiles = [];
+		var width = 0;
+		var height = 0;
+		$.getJSON("/map/button/load", function(data){
+	    	width = data.width*2;
+	    	height = data.height;
+	    	mapTiles = data.tiles;
+	    	game.state.start("TheGame", true, false, width, height, mapTiles);
+	    });
 	},
 
 	menu: function(){

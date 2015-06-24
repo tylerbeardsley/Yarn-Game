@@ -68,12 +68,10 @@ gameTitle.prototype = {
 	playTheGame: function(){
 		// width * 2 because game treats as two rows
 		var mapTiles = [];
-		$.getJSON("/map/button/load", function(data){
-	    	width = data.width*2;
-	    	height = data.height;
-	    	mapTiles = data.tiles;
-	    	game.state.start("TheGame", true, false, width, height, mapTiles);
-	    });
+		for(var i = 0; i < width*2*height; i++){
+			mapTiles[i] = "rocktile.png";
+		}
+	    this.game.state.start("TheGame", true, false, width * 2, height, mapTiles);
 	},
 
 	addOneW: function(){
