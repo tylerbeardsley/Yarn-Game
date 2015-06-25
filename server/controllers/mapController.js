@@ -53,5 +53,14 @@ module.exports = {
                 
             });
         }
+    },
+
+    deleteMap: {
+        handler: function(request, reply){
+            // Grab the DB from dogwater
+            var db = request.server.plugins['dogwater'];
+            
+            db.maps.destroy({name: request.payload.name}).exec(function(err) {});
+        }
     }
 }

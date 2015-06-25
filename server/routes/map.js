@@ -16,4 +16,9 @@ module.exports = [
         path: '/maps/button/findall',
         config: controller.findall
     },
+    {
+        method: 'DELETE',
+        path: '/maps/button/deleteMap',
+        config: controller.deleteMap
+    },
 ]
