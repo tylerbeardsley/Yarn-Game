@@ -4,6 +4,8 @@ module.exports = {
         handler: function(request, reply){
             // Grab the DB from dogwater
             var db = request.server.plugins['dogwater'];
+
+            console.log(request.payload.tiles.length);
             
             // Look for Stimpy in the cats model, placed there as a fixture
             // add a click to Stimpy
@@ -35,7 +37,7 @@ module.exports = {
             db.maps.findOne({name: request.query.name}).then(function(map) {
             
                 reply({name: map.name, tiles: map.tiles, 
-                           width: map.width, height: map.height});
+                       width: map.width, height: map.height});
                 
             });
         }

@@ -63,14 +63,16 @@ mapMenu.prototype = {
 	playTheGame: function(){
 		// width * 2 because game treats as two rows
 		var mapTiles = [];
-		for(var i = 0; i < width*2*height; i++){
+		for(var i = 0; i < width*height; i++){ // MIGHT NEED TO * 2 here
 			mapTiles[i] = "rocktile.png";
 		}
 	    this.game.state.start("MapMaker", true, false, width * 2, height, mapTiles, "Cool Map");
 	},
 
 	addOneW: function(){
-		width++;
+		if(width <= 30){
+			width++;
+		}
 		widthText.text = "Width: " + width.toString();
 	},
 
@@ -82,7 +84,9 @@ mapMenu.prototype = {
 	},
 
 	addOneH: function(){
-		height++;
+		if(height <= 30){
+			height++;
+		}
 		heightText.text = height.toString() + " :Height";
 	},
 

@@ -268,6 +268,4 @@ mapMaker.prototype = {
 	menu: function(){
 		game.state.start("Menu", true, false);
 	}
-
-	// NOTE: At some point will need to call this.game.state.start("GameOver", true, false, score);
 };
