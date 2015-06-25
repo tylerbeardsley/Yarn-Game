@@ -9,5 +9,6 @@ game.state.add("Preload", preload);
 game.state.add("GameTitle", gameTitle);
 game.state.add("Character", characterBuilder);
 game.state.add("TheGame", theGame);
+game.state.add("SavedMaps", savedMaps);
 game.state.add("GameOver", gameOver);
 game.state.start("Boot");

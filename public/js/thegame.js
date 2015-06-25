@@ -253,21 +253,13 @@ theGame.prototype = {
 		// ask for map name
 		mapName = prompt("Enter your map name", mapName);
 
-		$.post("/map/button/add", {name: mapName, tiles: mapTiles, 
+		$.post("/maps/button/add", {name: mapName, tiles: mapTiles, 
 								   width: gridSizeX/2, height: gridSizeY});
 		alert("Your map titled \""+mapName+"\" has been saved!");
 	},
 
 	loadMap: function(){
-		var searchName = ""; 
-		searchName = prompt("What map would you like to load?", mapName);
-		$.getJSON("/map/button/load", {name: searchName}, function(data){
-	    	var width = data.width*2;
-	    	var height = data.height;
-	    	var mapTiles = data.tiles;
-	    	var name = data.name;
-	    	game.state.start("TheGame", true, false, width, height, mapTiles, name);
-	    });
+		game.state.start("SavedMaps", true, false);
 	},
 
 	menu: function(){

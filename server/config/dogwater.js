@@ -36,7 +36,7 @@ module.exports = {
           ]
       },
       {
-          model: 'map',
+          model: 'maps',
           items:[
           {
             id: 1,

@@ -3,12 +3,17 @@ var controller = require('../controllers/mapController.js');
 module.exports = [
     {
         method: 'POST',
-        path: '/map/button/add',
+        path: '/maps/button/add',
         config: controller.add
     },
     {
         method: 'GET',
-        path: '/map/button/load',
+        path: '/maps/button/load',
         config: controller.load
+    },
+    {
+        method: 'GET',
+        path: '/maps/button/findall',
+        config: controller.findall
     },
 ]

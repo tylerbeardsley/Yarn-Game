@@ -1,6 +1,6 @@
 module.exports = {
 
-    identity: 'map',
+    identity: 'maps',
 
     connection: 'diskDb',
 

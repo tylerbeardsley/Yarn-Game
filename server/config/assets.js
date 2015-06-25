@@ -38,6 +38,7 @@ var development = {
         'js/gametitle.js',
         'js/characterbuilder.js',
         'js/thegame.js',
+        'js/savedMaps.js',
         'js/gameover.js',
         'js/main.js'
     ]),

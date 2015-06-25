@@ -85,20 +85,6 @@ characterBuilder.prototype = {
             attackVal = data.attack;
             defenseVal = data.defense;
             totalStatPoints = data.points;
-
-            // Just in case stats haven't been initialized yet
-            // switched to handle this with the defaultsTo method in it's model
-            /*
-            if(hitPointsVal == null){
-	            charName = "George Clooney";
-		        hitPointsVal = 1;
-		        moveVal = 0;
-		        rangeVal = 1;
-		        attackVal = 0;
-		        defenseVal = 0;
-		        totalStatPoints = 18;
-	    	}
-	    	*/
         	
 			// Numbers in tiles that change
 			var style = {font: "32px Arial", fill: "#ffffff", align: "center"};
