@@ -37,6 +37,14 @@ savedMaps.prototype = {
                 yPos += 50;
             }
         });
+
+        // Add menu button to return to menu
+        var menuButton = game.add.button(0, document.body.offsetHeight, "trixels", 
+                                     this.menu, this, "menubutton.png", 
+                                     "menubutton.png", "menubutton.png", "menubutton.png");
+        menuButton.anchor.setTo(0, 1);
+        menuButton.input.useHandCursor = true;
+        menuButton.fixedToCamera = true;
 	},
 
     loadMap: function(link){
@@ -58,12 +66,20 @@ savedMaps.prototype = {
         link.fill = "#000000";
     },
 
+    menu: function(){
+        game.state.start("Menu", true, false);
+    },
+
     deleteMap: function(link){
-        $.ajax({
-            type: "DELETE",
-            url: "/maps/button/deleteMap",
-            data: {name: link.name}
-        });
-        game.state.start("SavedMaps", true, false);
+        var check = prompt("Are you sure you want to delete "+link.name+"?");
+
+        if(check != null){
+            $.ajax({
+                type: "DELETE",
+                url: "/maps/button/deleteMap",
+                data: {name: link.name}
+            });
+            game.state.start("SavedMaps", true, false);
+        }
     }
 };
