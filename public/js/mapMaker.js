@@ -1,6 +1,6 @@
-var theGame = function(game){};
+var mapMaker = function(game){};
 
-theGame.prototype = {
+mapMaker.prototype = {
 	init: function(width, height, theMap, nameID){
 		hexagonWidth = 109; // actual size is 111 but that shows hex outline
 		hexagonHeight = 127; // actual size is 128
@@ -263,7 +263,7 @@ theGame.prototype = {
 	},
 
 	menu: function(){
-		game.state.start("GameTitle", true, false);
+		game.state.start("Menu", true, false);
 	}
 
 	// NOTE: At some point will need to call this.game.state.start("GameOver", true, false, score);

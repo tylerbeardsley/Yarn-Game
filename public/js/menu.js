@@ -1,10 +1,10 @@
-var gameTitle = function(game){
+var menu = function(game){
 	// Set a couple variables
 	width = 25;
 	height = 18;
 };
 
-gameTitle.prototype = {
+menu.prototype = {
 	create: function(){
 		// can create gameTitle sprite here if I want
 		console.log("game title is getting called");
@@ -74,7 +74,7 @@ gameTitle.prototype = {
 		for(var i = 0; i < width*2*height; i++){
 			mapTiles[i] = "rocktile.png";
 		}
-	    this.game.state.start("TheGame", true, false, width * 2, height, mapTiles, "Cool Map");
+	    this.game.state.start("MapMaker", true, false, width * 2, height, mapTiles, "Cool Map");
 	},
 
 	addOneW: function(){

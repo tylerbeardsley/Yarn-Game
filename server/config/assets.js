@@ -35,9 +35,9 @@ var development = {
         'js/phaser.js',
         'js/boot.js',
         'js/preload.js',
-        'js/gametitle.js',
+        'js/menu.js',
         'js/characterbuilder.js',
-        'js/thegame.js',
+        'js/mapMaker.js',
         'js/savedMaps.js',
         'js/gameover.js',
         'js/main.js'

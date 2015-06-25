@@ -21,6 +21,6 @@ preload.prototype = {
     },
 
 	create: function(){
-		this.game.state.start("GameTitle");
+		this.game.state.start("Menu");
 	}
 };

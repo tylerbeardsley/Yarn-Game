@@ -310,6 +310,6 @@ characterBuilder.prototype = {
 					range: rangeVal, attack: attackVal, defense: defenseVal, 
 					points: totalStatPoints};
 		$.post("/character/button/add", data);
-		game.state.start("GameTitle", true, false);
+		game.state.start("Menu", true, false);
 	}
 }

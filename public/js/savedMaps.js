@@ -31,7 +31,7 @@ savedMaps.prototype = {
             var height = data.height;
             var mapTiles = data.tiles;
             var name = data.name;
-            game.state.start("TheGame", true, false, width, height, mapTiles, name);
+            game.state.start("MapMaker", true, false, width, height, mapTiles, name);
         });
     },
 
