@@ -36,6 +36,7 @@ var development = {
         'js/boot.js',
         'js/preload.js',
         'js/menu.js',
+        'js/mapMenu.js',
         'js/characterbuilder.js',
         'js/mapMaker.js',
         'js/savedMaps.js',

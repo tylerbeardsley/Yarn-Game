@@ -253,9 +253,12 @@ mapMaker.prototype = {
 		// ask for map name
 		mapName = prompt("Enter your map name", mapName);
 
-		$.post("/maps/button/add", {name: mapName, tiles: mapTiles, 
-								   width: gridSizeX/2, height: gridSizeY});
-		alert("Your map titled \""+mapName+"\" has been saved!");
+		// catch if user clicks cancel
+		if(mapName != null){
+			$.post("/maps/button/add", {name: mapName, tiles: mapTiles, 
+									   width: gridSizeX/2, height: gridSizeY});
+			alert("Your map titled \""+mapName+"\" has been saved!");
+		}
 	},
 
 	loadMap: function(){

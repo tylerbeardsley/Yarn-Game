@@ -8,6 +8,7 @@ game.state.add("Boot", boot);
 game.state.add("Preload", preload);
 game.state.add("Menu", menu);
 game.state.add("Character", characterBuilder);
+game.state.add("MapMenu", mapMenu);
 game.state.add("MapMaker", mapMaker);
 game.state.add("SavedMaps", savedMaps);
 game.state.add("GameOver", gameOver);

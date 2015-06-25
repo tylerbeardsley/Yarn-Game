@@ -11,7 +11,6 @@ module.exports = {
             // add a click to Stimpy
             db.character.findOne(1).then(function(character) {
 
-                console.log(character);
                 character.name = request.payload.name;
                 character.life = request.payload.life;
                 character.move = request.payload.move;
@@ -19,7 +18,6 @@ module.exports = {
                 character.attack = request.payload.attack;
                 character.defense = request.payload.defense;
                 character.points = request.payload.points;
-                console.log(character);
 
                 character.save(function(err, character){
                     if(err){
